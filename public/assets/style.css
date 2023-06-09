@@ -1,0 +1,516 @@
+.breadcrumb-header {
+ display: flex;
+ margin-top: 7px;
+ margin-bottom: 5px;
+ width: 100%;
+}
+
+.pagination{
+    float: right;
+    margin-top: 10px;
+}
+/*
+  this file about css code that will be used 
+*/
+ /******************* header ***********************************/
+ .header {
+  color: black;
+  /* height: 82vh; */
+  /* padding-top: 140px;
+
+  padding-bottom: 140px; */
+}
+.header .header-title h1{
+  text-align: center;
+  font-size: 50px;
+  font-weight: 600;
+  padding-top: 140px;
+}
+.header .header-title p{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.header .header-body .title, .header .header-body .place{
+  position: relative;
+}
+.header .header-body input{
+  text-indent: 45px;
+}
+.header .header-body .title .fa, 
+.header .header-body .place .fa{
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  color: #aaaaaa;
+}
+.header .header-footer{
+  padding-top: 20px;
+  text-align: center;
+}
+/******************* header ***********************************/
+
+/* -------------- Start UpperBar -------------- */
+.upper-bar{
+ background-color:#08526d;
+ color:#fFF;
+ line-height: 1.1;
+ 
+}
+.upper-bar .item{
+ margin: 14px 0;
+}
+.upper-bar .item i{
+ margin-right: 6px;
+}
+.upper-bar span{
+ color:#bfc6c9 ;
+}
+@media(max-width:576px){
+ .upper-bar .item:first-child{
+     margin-bottom: 0;
+ }
+}
+/* -------------- End UpperBar -------------- */
+
+/* -- Start Header Navbar  -- */
+.navbar{
+ padding-top: 7px;
+ padding-bottom: 6px;
+ background-color: #bfc6c9;
+}
+.navbar .navbar-brand > span{
+ font-size: 22px;
+}
+.navbar .navbar-brand span:first-child{
+ color:#08526d;
+ font-weight: bold;
+}
+.navbar .navbar-brand span:last-child{
+ color:#ec1c23;
+}
+
+.navbar .navbar-nav .nav-link{
+ font-size: 16.1px;
+ text-transform: uppercase;
+ color:#08526d;
+}
+
+.navbar .navbar-nav .active .nav-link{
+ color:#ec1c23;
+}
+.navbar .last-list .nav-item{
+ border-radius: 20px;
+ margin: 0 2px;
+}
+.navbar .last-list .nav-item:nth-last-child(1){
+ border:2px solid #08526d ;
+ border-radius: 20px;
+}
+.navbar .last-list .nav-item:nth-last-child(1) a{
+ color:#08526d;
+ text-decoration: none;
+}
+.navbar .last-list .nav-item:nth-last-child(1):hover{
+ border:2px solid #ec1c23 ;
+
+}
+.navbar .last-list .nav-item:nth-last-child(1):hover a{
+ color:#ec1c23;
+}
+
+.navbar .last-list .nav-item:nth-last-child(2){
+ border:2px solid #08526d ;
+ border-radius: 20px;
+}
+.navbar .last-list .nav-item:nth-last-child(2) a{
+ text-decoration: none;
+ color:#08526d;
+}
+.navbar .last-list .nav-item:nth-last-child(2):hover{
+ border:2px solid #ec1c23 ;
+
+}
+.navbar .last-list .nav-item:nth-last-child(2):hover a{
+ color:#ec1c23;
+}
+@media (max-width: 1000px){
+ .navbar .navbar-nav{
+     padding-right: 0;
+    margin-left: auto;
+    color: red;
+     text-align: right;
+ }
+ .navbar .navbar-nav  .nav-link{
+     padding: 3px ;
+ }
+}
+
+@media (max-width: 1000px){
+ .navbar{
+     background-color: rgba(255,255,255,0.6);
+ }
+ .navbar .dropdown {
+     margin-right: 62px;
+     margin-top: -51px;
+ }
+ .navbar .dropdown li a{
+     margin-top: -51px;
+     margin-right: 70px;
+     display: block;
+     width: 200px;
+     margin-left: 86%;
+ }
+ .navbar .dropdown-menu{
+     
+     left: 0px;
+     right: inherit;
+     width: 200px;
+     margin-left: 57%;
+ }
+ .navbar .dropdown-menu:hover a{
+     color: #08526d;
+ }
+ .navbar-nav{
+     padding: 0;
+     margin-right: 0;
+     width: 129px;
+ }
+ .navbar-nav a{
+
+     padding-right: 0;
+     margin-left: auto;
+     color: red;
+     text-align: right;
+ }
+ .navbar .last-list{
+     padding: 0;
+     margin-right: 0;
+     width: 129px;
+ 
+ }
+ .navbar .last-list .nav-item{
+     padding-right: 0px;
+     margin: 2px;
+ }
+ .navbar .last-list .nav-item:nth-last-child(1) a{
+     padding: 3px;
+     border: none;
+ }
+}
+
+.header .main-header{
+ padding-top: 20px;
+}
+/*-- End Header Navbar  --*/
+
+/* --------------------------- Start Login Page Css --------------------------- */
+.login-page .login-container {
+ height: 80vh;
+ background-color: red;
+ margin: auto;
+ box-shadow: 1.5px 3.99px 27px 0px rgba(0, 0, 0, 0.1);
+ transition: 0.3s;
+ background-color: rgba(255, 255, 255, 0.72);
+ margin: auto;
+ margin-top: 5%; 
+ padding-top: 40px;
+ border-radius: 20px;
+}
+@media screen and (max-width: 991px) {
+ .login-page .login-container {
+     margin-bottom: 5%; 
+ } 
+}
+.login-page .login-container .login-form{
+
+}
+.login-page .login-container .login-form h5{
+ padding-top: 30px;
+}
+.login-page .login-container .login-form form{
+ margin-right: 10px;
+}
+
+/* --------------------------- End Login Page Css --------------------------- */
+
+
+/* --------------------------- Start Select Type Register Page Css --------------------------- */
+
+.register-page .select-form-container .first-content{
+ color: white;
+ height: 100%;
+ padding-top: 140px;
+ letter-spacing: 2px;
+}
+.register-page .select-form-container .header .logo{
+ font-size: 30px;
+ text-decoration: none;
+}
+.register-page .select-form-container .header .logo a{
+ text-decoration: none;
+}
+.register-page .select-form-container .header .logo a:hover{
+ text-decoration: none !important
+}
+.register-page .select-form-container .header .logo a span:first-child{
+ color: #0B409C;
+ margin-right: 0;
+}
+.register-page .select-form-container .header .logo a span:last-child{
+ color: #FDBE34;
+ font-weight: 700;
+}
+.register-page .select-form-container .first-content{
+ margin-left: 0;
+ width: 100%;
+ background-color: #0B409C;
+ border-radius: 20px 0 0 20px  ;
+ margin-right: 20px;
+}
+
+.register-page .select-form-container .items .item-1,
+.register-page .select-form-container .items .item-2{
+
+ padding-top: 20px;
+ padding-bottom: 20px;
+ background-color: #fff;
+ color: black;
+ border-radius: 10px;
+ box-shadow: 1.5px 3.99px 27px 0px rgba(0, 0, 0, 0.1);
+}
+
+.register-page .select-form-container .items .item-1:hover,
+.register-page .select-form-container .items .item-2:hover{
+ border: 1px solid #0B409C;
+ background-color: #0b409c36;
+}
+
+.register-page .select-form-container a:hover{
+ text-decoration: none;
+}
+.register-page .select-form-container .icons{
+ font-size: 45px;
+ color: cornflowerblue;
+ margin-right: 10px;
+ margin-top: -6px;
+ margin-left: 10px;
+}
+.register-page .select-form-container .media span{
+ color: #616161;
+}
+/* --------------------------- End Select Type Register Page Css --------------------------- */
+
+/* --------------------------- Start Register Page Css --------------------------- */
+.register-page .register-container{
+ /* height: 90vh; */
+
+ margin: auto;
+ box-shadow: 1.5px 3.99px 27px 0px rgba(0, 0, 0, 0.1);
+ transition: 0.3s;
+ background-color: rgba(255, 255, 255, 0.72);
+ margin: auto;
+ margin-top: 1%; 
+ border-radius: 20px;
+}
+.register-page .register-container .first-content{
+ background-color: #0B409C;
+ border-radius: 20px 0 0 20px  ;
+ color: white;
+ height: 100%;
+ padding-top: 15%;
+ padding-left: 20px;
+}
+.register-page .register-container .first-content p i{
+ margin-right: 5px;
+}
+.register-page .register-container .header-form .logo{
+ font-size: 30px;
+ text-decoration: none;
+ 
+}
+.register-page .register-container .header-form .logo a{
+ text-decoration: none;
+}
+.register-page .register-container .header-form .logo a:hover{
+ text-decoration: none !important
+}
+.register-page .register-container .header-form .logo a span:first-child{
+ color: #0B409C;
+ margin-right: 0;
+}
+.register-page .register-container .header-form .logo a span:last-child{
+ color: #FDBE34;
+ font-weight: 700;
+}
+/* --------------------------- End Register Page Css --------------------------- */
+
+
+/* --------------------------- Start Select Form Register Page Css --------------------------- */
+
+.register-page .select-form-container{
+ margin-top: 6%; 
+
+}
+/* --------------------------- End Select Form Register Page Css --------------------------- */
+
+
+/* --------------------------- Start Register Company Page Css --------------------------- */
+
+.register-page .register-company-container{
+ margin-top: 4%; 
+}
+
+/* --------------------------- End Company Student Page Css --------------------------- */
+
+
+/* --------------------------- Start Register Student Page Css --------------------------- */
+
+.register-page .register-student-container{
+
+}
+
+/* --------------------------- End Register Student Page Css --------------------------- */
+
+
+/* --------------------------- Start Setting  Page Css --------------------------- */
+.profile-page{
+  /* code css of profile page */
+}
+.profile-page .nav-link{
+ color: inherit;   
+}
+.profile-page .nav-link.active{
+ color: inherit;
+ font-weight: 600;
+ border-left:3px solid #007bff;
+ background-color: rgba(32,107,196, 0.04);
+}
+.profile-page .account-profile .title-section{
+ padding-top: 8px;
+}
+
+.profile-page .account-profile .language-profile .item,
+.profile-page .account-profile .skill-profile .item{
+   padding: 5px;
+   background-color: #d9e6f0;
+   width: auto;
+   border-radius: 10px;
+}
+.profile-pic {
+ color: transparent;
+ transition: all 0.3s ease;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ position: relative;
+ transition: all 0.3s ease;
+}
+.profile-pic input {
+ display: none;
+}
+.profile-pic img {
+ position: absolute;
+ object-fit: cover;
+ width: 165px;
+ height: 165px;
+ box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+ border-radius: 100px;
+ z-index: 0;
+}
+.profile-pic .-label {
+ cursor: pointer;
+ height: 165px;
+ width: 165px;
+}
+.profile-pic:hover .-label {
+
+/*  */
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background-color: rgba(0, 0, 0, 0.8);
+ z-index: 10000;
+ color: #fafafa;
+
+ transition: background-color 0.2s ease-in-out;
+ border-radius: 100px;
+ margin-bottom: 0;
+}
+.profile-pic span {
+ display: inline-flex;
+ padding: 5.2em;
+ height: 2em;
+ margin-top: 100px;
+}
+
+
+.profile-pic body a:hover {
+ text-decoration: none;
+}
+hr{
+ border-top: none;
+}
+/* --------------------------- End Setting Student Page Css --------------------------- */
+
+
+/* --------------------------- Start Company Page Css --------------------------- */
+
+/* --------------------------- End Company Page Css --------------------------- */
+
+
+
+
+
+.footer {
+    padding-top: 130px;
+    position: relative;
+    background: #2c3e50;
+  
+  }
+  
+  .footer::after {
+    content: '';
+    border-bottom-left-radius: 50% 50%;
+    border-bottom-right-radius: 50% 50%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: #f5f6f7;
+    height: 100px;
+  }
+  
+  
+  /* footer */
+  footer .media li {
+    float: left;
+    color: #050505;
+    font-size: 40px;
+    margin-right: 5px;
+    opacity: 0.7;
+    -webkit-transition: all 0.7s ease-in-out;
+    -moz-transition: all 0.7s ease-in-out;
+    -o-transition: all 0.7s ease-in-out;
+    transition: all 0.7s ease-in-out;
+  }
+  footer .media li:hover {
+    opacity: 1;
+  }
+  footer .media li a {
+    color: #ffffff;
+  }
+  footer .Links {
+    margin-top: 20px;
+  }
+  footer .Links li {
+    margin-top: 10px;
+  }
+  footer .Links li a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  footer .Links li a:hover {
+    text-decoration: none;
+  }
