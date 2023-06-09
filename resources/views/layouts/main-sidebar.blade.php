@@ -49,7 +49,17 @@
 							<li><a class="slide-item" href="{{ url('/' . $page='chart-peity') }}">Current Formation</a></li>
 						</ul>
 					</li>
-					
+					<li class="side-item side-item-category">Settings</li>
+					<li class="slide">
+						<a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">
+							<i class="fa fa-cog fa-2x mr-1 side-menu__icon mb-auto" aria-hidden="true"></i>
+							<span class="side-menu__label mr-2">Account</span>
+						</a>
+						<ul class="slide-menu">
+							<li><a class="slide-item" href="{{ route('company.index', auth('company')->user()->name) }}">Edit Profile</a></li>
+							<li><a class="slide-item" href="{{ route('company.settings', auth('company')->user()->name) }}">Account Settings</a></li>
+						</ul>
+					</li>
 
 				</ul>
 			</div>
