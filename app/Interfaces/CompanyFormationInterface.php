@@ -2,10 +2,13 @@
 
 namespace App\Interfaces;
 
-interface FormationInterface{
+interface CompanyFormationInterface{
     
     //  Get All Formation
     public function allFormation() ;
+
+    //  Get All Formation With Status
+    public function allFormationWithStatus($name , $status);
     
     //  Get Formation By Id
     public function getFormationById($id) ;
@@ -20,6 +23,9 @@ interface FormationInterface{
     
     //  Update Formation
     public function update($request ,$id) ;
+
+    //  Update Status Formation
+    public function updateStatus($request,$name, $id);
  
     //  Delete Formation
     public function destroy($id) ;

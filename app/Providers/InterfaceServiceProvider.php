@@ -24,22 +24,25 @@ use App\Interfaces\LanguageInterface;
 use App\Services\CompanyApplyService;
 
 use App\Interfaces\EducationInterface;
-use App\Interfaces\FormationInterface;
 use App\Interfaces\ExperienceInterface;
 use App\Services\AccountCompanyService;
 use App\Services\AccountStudentService;
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\CompanyApplyInterface;
+use App\Services\CompanyFormationService;
 use App\Services\Education\SchoolService;
 use App\Services\StudentFormationService;
 use App\Services\CompanyEvaluationService;
+use App\Services\StudentEvaluationService;
 use App\Interfaces\AccountCompanyInterface;
 use App\Interfaces\AccountStudentInterface;
 use App\Services\Education\InstituteService;
+use App\Interfaces\CompanyFormationInterface;
 use App\Interfaces\Education\SchoolInterface;
 use App\Interfaces\StudentFormationInterface;
 use App\Services\Education\UniversityService;
 use App\Interfaces\CompanyEvaluationInterface;
+use App\Interfaces\StudentEvaluationInterface;
 use App\Interfaces\Education\InstituteInterface;
 use App\Interfaces\Education\UniversityInterface;
 
@@ -65,7 +68,7 @@ class InterfaceServiceProvider extends ServiceProvider{
 
         $this->app->bind(SkillInterface::class ,SkillService::class );
 
-        $this->app->bind(FormationInterface::class ,FormationService::class );
+        $this->app->bind(CompanyFormationInterface::class ,CompanyFormationService::class );
 
         $this->app->bind(ApplyInterface::class ,ApplyService::class );
 
@@ -73,6 +76,8 @@ class InterfaceServiceProvider extends ServiceProvider{
 
         // StudentFormationService ,, StudentFormationInterface
         $this->app->bind(StudentFormationInterface::class ,StudentFormationService::class );
+
+        $this->app->bind(StudentEvaluationInterface::class ,StudentEvaluationService::class );
 
         $this->app->bind(CompanyEvaluationInterface::class ,CompanyEvaluationService::class );
 

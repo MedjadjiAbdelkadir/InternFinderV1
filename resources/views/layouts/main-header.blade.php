@@ -379,6 +379,9 @@
 										<i class="fa fa-th-large" aria-hidden="true"></i>
 										Dashboard
 									</a>
+									<a class="dropdown-item" href="{{ route('student.evaluation.index',['name'=>auth('student')->user()->full_name]) }}">
+										<i class="fa fa-star"></i>Evaluation
+									</a>
 									<a class="dropdown-item" href="{{route('student.index',auth('student')->user()->full_name)}}">
 									    <i class="bx bx-cog"></i>Profile
 								    </a>

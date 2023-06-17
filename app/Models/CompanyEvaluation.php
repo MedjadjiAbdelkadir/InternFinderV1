@@ -14,17 +14,32 @@ class CompanyEvaluation extends Model
     protected $fillable = [
         'time',
         'rules_conditions',
-        'environment',
-        'content',
+        'development',
+        'team',
         'remark',
+        'apply_id',
         'formation_id',
         'student_id',
     ];
+    protected $casts = [
+        'created_at'  => 'datetime:Y-m-d H:i',
+        'updated_at' => 'datetime:Y-m-d H:i',
+    ];
 
-    protected $appends = ['average'];
+    protected $appends = ['finalMark'];
 
-    public function getAverageAttribute() {
-        return ($this->time + $this->rules_conditions + $this->environment + $this->content) / 4;
+    public function getFinalMarkAttribute() {
+        return ($this->time + $this->rules_conditions + $this->development + $this->team);
     }
-    
+
+    public function students() {
+		return $this->hasOne(Student::class, 'id' , 'student_id' ); 
+	}  
+    public function formations() {
+		return $this->hasOne(Formation::class, 'id','formation_id'); 
+	} 
+
+    public function applys() {
+		return $this->hasOne(Apply::class, 'id' , 'apply_id' ); 
+	}  
 }

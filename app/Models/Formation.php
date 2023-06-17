@@ -27,6 +27,7 @@ class Formation extends Model
         'description',
         'start', 
         'end',
+        'status',
         'company_id',
         'municipal_id',
     ];

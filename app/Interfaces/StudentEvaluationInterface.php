@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface CompanyEvaluationInterface{
+interface StudentEvaluationInterface{
 
     //  Get All Evaluation
     public function allEvaluation();

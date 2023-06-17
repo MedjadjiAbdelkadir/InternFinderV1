@@ -17,17 +17,37 @@ use App\Models\FormationLanguage;
 use App\Models\DurationExperience;
 use App\Models\FormationExperience;
 use App\Models\SpecialtyUniversity;
-use App\Interfaces\FormationInterface;
+
 use App\Models\FormationEducationSchool;
 use App\Models\FormationEducationInstitute;
 use App\Models\FormationEducationUniversity;
+use App\Interfaces\CompanyFormationInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class FormationService implements FormationInterface{
+class CompanyFormationService implements CompanyFormationInterface{
 
     public function allFormation(){
         try {
             //code...
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        } 
+    }
+
+    public function allFormationWithStatus($name , $status){
+        try {
+            $formations = Formation::whereStatus($status)->where('company_id',auth('company')->id())->with([
+                'company',
+                'formationUniversityEducations.specialty',
+                'formationUniversityEducations.degreeUniversities',
+        
+                'formationInstituteEducations.degreeInstitutes',    
+                'formationExperiences.durations',
+                'formationLanguages.languages',
+                'formationLanguages.levels'
+            ])->paginate(PAGINATE_COUNT);
+
+            return $formations;
         }catch (Exception $e) {
             throw new Exception('Internal Server Error');
         } 
@@ -242,6 +262,28 @@ class FormationService implements FormationInterface{
 
         }catch (Exception $e) {
             DB::rollback();
+            throw new Exception('Internal Server Error');
+
+        }
+    }
+
+
+    public function updateStatus($request,$name, $id){
+        try {
+
+            $formation = Formation::findOrFail($id);            
+            $formation->update([
+                'status' => $request->status ,
+            ]);
+
+            return auth('company')->user()->name ;
+            
+        }catch (ModelNotFoundException $e) {
+
+            throw new Exception('Formation not found', 404);
+
+        }catch (Exception $e) {
+
             throw new Exception('Internal Server Error');
 
         }

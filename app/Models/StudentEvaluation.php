@@ -13,15 +13,30 @@ class StudentEvaluation extends Model
     protected $fillable = [
         'time',
         'rules_conditions',
-        'development',
-        'team',
+        'environment',
+        'content',
         'remark',
         'formation_id',
         'student_id',
+        'apply_id'
     ];
-    protected $appends = ['average'];
 
-    public function getAverageAttribute() {
-        return ($this->time + $this->rules_conditions + $this->development + $this->team) / 4;
+    protected $casts = [
+        'created_at'  => 'datetime:Y-m-d H:i',
+        'updated_at' => 'datetime:Y-m-d H:i',
+    ];
+
+    protected $appends = ['finalMark'];
+
+    public function getFinalMarkAttribute() {
+        return ($this->time + $this->rules_conditions + $this->environment + $this->content);
     }
+
+    public function students() {
+		return $this->hasOne(Student::class, 'id' , 'student_id' ); 
+	}  
+
+    public function formations() {
+		return $this->hasOne(Formation::class, 'id','formation_id'); 
+	} 
 }

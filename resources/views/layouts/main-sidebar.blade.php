@@ -42,13 +42,38 @@
 						<ul class="slide-menu">
 							<li><a class="slide-item" href="{{ route('company.formations.index',auth('company')->user()->name) }}">All Formarions</a></li>
 							<li><a class="slide-item" href="{{ route('company.formations.create',auth('company')->user()->name) }}">Create Formation</a></li>
-							<li><a class="slide-item" href="{{ url('/' . $page='chart-flot') }}">Reserved Formation</a></li>
-							<li><a class="slide-item" href="{{ url('/' . $page='chart-chartjs') }}">Closed Registration Formation</a></li>
-							<li><a class="slide-item" href="{{ url('/' . $page='chart-echart') }}">Suspended Formation</a></li>
-							<li><a class="slide-item" href="{{ url('/' . $page='chart-sparkline') }}">Ending Formation</a></li>
-							<li><a class="slide-item" href="{{ url('/' . $page='chart-peity') }}">Current Formation</a></li>
+							
+							<li>
+								<a class="slide-item" href="{{ route('company.formations.status',['name'=>auth('company')->user()->name , 'status'=>'open'] ) }}">Open Formation</a>
+							</li>
+
+							<li>
+								<a class="slide-item" href="{{ route('company.formations.status',['name'=>auth('company')->user()->name , 'status'=>'started'] ) }}">Started Formation</a>
+							</li>
+
+							<li>
+								<a class="slide-item" href="{{ route('company.formations.status',['name'=>auth('company')->user()->name , 'status'=>'closed'] ) }}">Closed Formation</a>
+							</li>
+
+							<li>
+								<a class="slide-item" href="{{ route('company.formations.status',['name'=>auth('company')->user()->name , 'status'=>'finished'] ) }}">Ended Formation</a>
+							</li>
 						</ul>
 					</li>
+
+					<li class="side-item side-item-category">Evaluation</li>
+					<li class="slide">
+						<a class="side-menu__item" data-toggle="slide" href="{{ route('company.evaluation.index',['name'=>auth('company')->user()->name]) }}">
+							<i class="fa fa-star fa-2x mr-1 side-menu__icon mb-auto" aria-hidden="true"></i>
+							<span class="side-menu__label">Evaluation</span>
+						</a>
+						<ul class="slide-menu">
+							<li><a class="slide-item" href="{{ route('company.evaluation.index',['name'=>auth('company')->user()->name]) }}">All Evaluations</a></li>
+							{{-- <li><a class="slide-item" href="{{ url('/' . $page='darggablecards') }}">Student Evaluations</a></li> --}}
+							{{-- <li><a class="slide-item" href="{{ url('/' . $page='rangeslider') }}">Company Evaluation</a></li> --}}
+						</ul>
+					</li>
+					
 					<li class="side-item side-item-category">Settings</li>
 					<li class="slide">
 						<a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">

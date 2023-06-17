@@ -2,84 +2,81 @@
 
 namespace App\Http\Controllers\Company;
 
-use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Interfaces\CompanyEvaluationInterface;
 
-class EvaluationController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+class EvaluationController extends Controller{
+
+    protected $evaluationService ;
+
+    public function __construct(CompanyEvaluationInterface $evaluationService){
+        $this->evaluationService = $evaluationService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function index($name){
+        try {
+            $evaluations = $this->evaluationService->allEvaluation(); 
+            return view('pages.company.evaluation.index', compact('evaluations')); 
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function create($name){
+        try {
+            $formations =  $this->evaluationService->create();
+            return view('pages.company.evaluation.create' , compact('formations')); 
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function store(Request $request ,$name ){
+        try {
+            $name = $this->evaluationService->store($request); 
+            return redirect()->route('company.evaluation.index',$name);
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        } 
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function show($name ,$id){
+        try {
+            $evaluation =  $this->evaluationService->show($id);
+            return view('pages.company.evaluation.single' , compact('evaluation')); 
+            // return $this->evaluationService->show($id);
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        } 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    public function edit($name ,$id){
+        try {
+            $evaluation =  $this->evaluationService->show($id);
+            return view('pages.company.evaluation.edit' , compact('evaluation')); 
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function update(Request $request,$name , $id){
+        try {
+            $name = $this->evaluationService->update($request , $id); 
+            return redirect()->route('company.evaluation.index' , $name);
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
+    }
+
+    public function destroy($name ,$id){
+        try {
+            $this->evaluationService->destroy($id);
+            return redirect()->route('company.evaluation.index'); 
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
     }
 }

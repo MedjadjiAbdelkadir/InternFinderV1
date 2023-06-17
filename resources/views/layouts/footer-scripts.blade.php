@@ -31,3 +31,30 @@
 <!-- custom js -->
 <script src="{{URL::asset('assets/js/custom.js')}}"></script><!-- Left-menu js-->
 <script src="{{URL::asset('assets/plugins/side-menu/sidemenu.js')}}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#state').change(function() {
+            var state = $(this).val();
+            
+            if (state) {
+                $.ajax({
+                    url: '/city',
+                    type: 'get',
+                    dataType: 'json',
+                    data: {state: state},
+                    success: function(response) {
+                        
+                       $('#municipal').empty();
+                        $.each(response, function(key, value) {
+                            $('#municipal').append('<option value="' + value.id + '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#municipal').empty();
+                $('#municipal').append('<option hidden >Select a municipality</option>');
+            }
+        });
+    });
+</script>

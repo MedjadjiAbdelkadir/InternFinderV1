@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Company;
 
 use App\Models\State;
 use App\Models\Formation;
+use App\Models\Municipal;
 use App\Models\DegreeSchool;
 use App\Models\ListLanguage;
 use Illuminate\Http\Request;
@@ -14,15 +15,15 @@ use App\Models\SpecialtySchool;
 use App\Models\DegreeUniversity;
 use App\Models\DurationExperience;
 use App\Models\SpecialtyUniversity;
+
 use App\Http\Controllers\Controller;
-use App\Interfaces\FormationInterface;
 use App\Http\Requests\CreateFormationRequest;
-use App\Models\Municipal;
+use App\Interfaces\CompanyFormationInterface;
 
 class FormationController extends Controller{
     
     protected $formationService ;
-    public function __construct(FormationInterface $formationService){
+    public function __construct(CompanyFormationInterface $formationService){
         $this->formationService = $formationService;
     }
 
@@ -148,15 +149,40 @@ class FormationController extends Controller{
         }   
     }
 
+    public function updateStatus(Request $request,$name, $id){
+        try{
+            // return $this->formationService->updateStatus($request,$name, $id);
+            $name = $this->formationService->updateStatus($request,$name, $id);
+             return redirect()->route('company.formations.index',$name);
+        }catch (Exception $e) {
+
+            throw new Exception('Internal Server Error');
+        } 
+    }
+
+    public function allFormationWithStatus($name , $status){
+        try{
+            // return 'Formation : '.$status  ;
+            $formations = $this->formationService->allFormationWithStatus($name , $status);
+
+            return view('pages.company.formation.formation-with-status' ,compact(['formations','status']));
+            return $name ;
+            // formation-with-status
+            // return redirect()->route('company.formations.index',$name);
+        }catch (Exception $e) {
+
+            throw new Exception('Internal Server Error');
+        } 
+    }
+
 
     public function destroy($name,$id){
         try{
             $name = $this->formationService->destroy($id);
-            return redirect()->back();
+            return redirect()->route('company.formations.index',$name);
         }catch (Exception $e) {
 
             throw new Exception('Internal Server Error');
         }        
-
     }
 }

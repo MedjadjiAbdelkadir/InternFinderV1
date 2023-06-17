@@ -41,40 +41,31 @@
 <!-- End Modal Delete Formation -->
 @endsection
 @section('page-header')
-    <div class="breadcrumb-header justify-content-between">
-        <div class="my-auto">
-            <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Formation</h4>
-                {{-- <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Products</span> --}}
-            </div>
-        </div>
-        <!--
-        <div class="d-flex my-xl-auto right-content">
-  
-            <div class="mb-3 mb-xl-0 btn btn-primary">
-                Edit
-                {{-- <i class="fa fa-pencil fa-2x"></i> --}}
-            </div>
-        </div>
-        -->
-    </div>
+
 @endsection
 
 @section('content')
 
-            <div class="card mb-3 pb-0 w-100 mt-1">
-                <div class="card-header">
-                    <div class="d-flex">
-                        <h5 class="h4 mt-2">General Information</h5>
-                        <div class="mg-l-auto">
+            <div class="card mb-3 pb-0 w-100 mt-2">
+                <div class="card-header pb-0">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="content-title mb-0 my-auto">Show Formation</h4>
+                        <div class="actions">
                             <a class=" btn btn-primary" 
                                 href="{{route('company.formations.edit', ['name'=>auth('company')->user()->name , 'formation'=>$formation])}}"
                             >Edit
-                            {{-- <i class="fa fa-pencil" aria-hidden="true"></i> --}}
                             </a>
-                            {{-- <a class=" btn btn-danger" 
-                                href="{{route('company.formations.destroy', ['name'=>auth('company')->user()->name , 'formation'=>$formation])}}"
-                            >Delete</a> --}}
+                            @if($formation->status =='open' || $formation->status =='closed')
+
+                                @if($formation->status =='open')
+                                    <a class="btn btn-warning text-white" id="update-status"
+                                    >Closed</a>
+                                @elseif($formation->status =='closed')
+                                    <a class="btn btn-primary text-white" id="update-status"
+                                    >Open</a>
+                                @endif
+                                
+                            @endif
                             <a type="button" class="btn btn-danger" id="modal-remove"
                                 data-toggle="modal" data-target="#modal-remove"
                                 data-bs-item="Formation"
@@ -82,69 +73,82 @@
                                 data-bs-url="{{ route('company.formations.destroy', ['name'=>auth('company')->user()->name ,'formation'=>$formation->id]) }}"
                             >
                             Delete
-                            {{-- <i class="fa fa-trash-o" aria-hidden="true"></i> --}}
                             </a>
+
+                            <form method="POST" id="updateStatusForm" action="{{route('company.formations.update.status', ['name'=>auth('company')->user()->name , 'formation'=>$formation->id])}}">
+                                @csrf
+                                {{ method_field('PUT') }}
+                                @if($formation->status =='open' || $formation->status =='closed')
+                                    @if($formation->status =='open')
+                                        <input type="hidden" name="status" value="closed">
+                                    @elseif($formation->status =='closed')
+                                        <input type="hidden" name="status" value="open">
+                                    @endif
+                                    
+                                @endif
+                                <input type="submit" hidden id="btn-submit">
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="card-body row mb-0 pb-0">
-                    <div class="col-sm-12 col-md-12 pb-0 mb-0">
-                        <div class="general-information">
-                            <div class="row">
-                                <div class="col-md-2 col-lg-2 d-none d-md-block">
-                                    <img src="{{Avatar::create($formation->company->name)->toBase64()}}" class="img-fluid rounded-circle">
-                                </div>
-                                <div class="col-sm-12 col-md-10">
-                                    <div class="header-content">  
-                                        <h3 class="title text-primary">{{$formation->title}}</h3>
-                                        <h6 class="">
-                                            <i class="fa fa-map-marker mr-1" aria-hidden="true"></i>{{$formation->municipals->name}}, {{$formation->municipals->states->name}}
-                                        </h6>
-                                        <h6 class="">
-                                            <i class="fa fa-calendar-o mr-1" aria-hidden="true"></i> {{ date('d M Y',strtotime($formation->start)) }} To {{ date('d M Y',strtotime($formation->end)) }}  
-                                        </h6>
-                                        <h6 class="">
-                                            <i class="fa fa-users mr-1" aria-hidden="true"></i> {{$formation->nbr_place}}  Places
-                                        </h6>
-                                        <h6>
-                                            <i class="fa fa-clock mr-1"></i> {{$formation->permanence == 1 ? 'Full Time' : 'Part Time' }}
-                                        </h6>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-1">
-                                    <div class="form-group">
-                                        <h6 class="h5">Description</h6>
-                                        <p>{{$formation->description}}</p>
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-12 col-md-12 mt-0 pt-0">
-                        <div class="education-section mb-1">
-                                <h5 class="h4">Education </h5>
-                                @foreach($formation->formationUniversityEducations as $universityEducations)
-                                <p class="m-0 pl-2">{{$universityEducations->degreeUniversities->name}} - {{$universityEducations->specialty->name}}</p>
-                                @endforeach
-                                @foreach($formation->formationInstituteEducations as $instituteEducations)
-                                <p class="m-0 pl-2">{{$instituteEducations->degreeInstitutes->name}} - {{$instituteEducations->name}}</p> 
-                                @endforeach
-                        </div>
-                        <div class="experience-section">
-                            <h5 class="h4">Experience</h5>
-                            @foreach($formation->formationExperiences as $experience)							
-                                <p class="m-0 pl-2">{{$experience->durations->duration}} - {{$experience->specialty}}</p>
-                            @endforeach
-                        </div>
-                        <div classs="languages-section mb-2">
-                            <h5 class="h4">Language</h5>
-                            @foreach($formation->formationLanguages as $language)
-                            <p class="m-0 pl-2">{{$language->languages->name}} : {{$language->levels->level}}</p>
-                            @endforeach			
-                        </div>
-                    </div>
+                <hr>
 
+                <div class="card-body pt-0 px-0">
+                    <div class="general-information px-4">
+                        <h5 class="">General Information</h5>
+                        <div class="row">
+                            <div class="col-md-2 col-lg-2 d-none d-md-block">
+                                <img src="{{Avatar::create($formation->company->name)->toBase64()}}" class="img-fluid rounded-circle">
+                            </div>
+                            <div class="col-sm-12 col-md-10">
+                                <div class="header-content">  
+                                    <h3 class="title text-primary">{{$formation->title}}</h3>
+                                    <h6 class="">
+                                        <i class="fa fa-map-marker mr-1" aria-hidden="true"></i>{{$formation->municipals->name}}, {{$formation->municipals->states->name}}
+                                    </h6>
+                                    <h6 class="">
+                                        <i class="fa fa-calendar-o mr-1" aria-hidden="true"></i> {{ date('d M Y',strtotime($formation->start)) }} To {{ date('d M Y',strtotime($formation->end)) }}  
+                                    </h6>
+                                    <h6 class="">
+                                        <i class="fa fa-users mr-1" aria-hidden="true"></i> {{$formation->nbr_place}}  Places
+                                    </h6>
+                                    <h6>
+                                        <i class="fa fa-clock mr-1"></i> {{$formation->permanence == 1 ? 'Full Time' : 'Part Time' }}
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-1">
+                                <div class="form-group">
+                                    <h6 class="h5">Description</h6>
+                                    <p>{{$formation->description}}</p>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <hr>
+                    <div class="education-section mb-1 px-4">
+                        <h5 class="">Education </h5>
+                        @foreach($formation->formationUniversityEducations as $universityEducations)
+                            <p class="m-0 pl-2">{{$universityEducations->degreeUniversities->name}} - {{$universityEducations->specialty->name}}</p>
+                        @endforeach
+                        @foreach($formation->formationInstituteEducations as $instituteEducations)
+                            <p class="m-0 pl-2">{{$instituteEducations->degreeInstitutes->name}} - {{$instituteEducations->name}}</p> 
+                        @endforeach
+                    </div>
+                    <hr>
+                    <div class="experience-section px-4">
+                        <h5 class="">Experience</h5>
+                        @foreach($formation->formationExperiences as $experience)							
+                            <p class="m-0 pl-2">{{$experience->durations->duration}} - {{$experience->specialty}}</p>
+                        @endforeach
+                    </div>
+                    <hr>
+                    <div class="languages-section px-4">
+                        <h5 class="">Language</h5>
+                        @foreach($formation->formationLanguages as $language)
+                            <p class="m-0 pl-2">{{$language->languages->name}} : {{$language->levels->level}}</p>
+                        @endforeach			
+                    </div>
                 </div>
 
             </div> <!-- End Card -->
@@ -173,5 +177,18 @@
 			$('#removeForm').attr('action', url);
 		});
 	});
+</script>
+
+<script>
+    $('#update-status').click(function(e){
+        // e.preventDefault() // Don't post the form, unless confirmed
+        // if (confirm('Are you sure?')) {
+        //     // Post the form
+        //     $(e.target).closest('form').submit() // Post the surrounding form
+        // }
+        // alert('btn Update Status Clicked');
+        // $('#updateStatusForm').;
+        $('#updateStatusForm').submit()
+    });
 </script>
 @endsection

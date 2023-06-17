@@ -12,7 +12,7 @@
 
 @endsection
 @section('page-header')
-				<!-- breadcrumb -->
+				{{-- <!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
@@ -22,140 +22,139 @@
 					</div>
 
 				</div>
-				<!-- breadcrumb -->
+				<!-- breadcrumb --> --}}
 @endsection
 
 @section('content')
 		
-	<div class="row row-sm">
-		<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 grid-margin">
-			<div class="card">
+
+			<div class="card mb-3 pb-0 w-100 mt-2">
+				<div class="card-header pb-0">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="content-title mb-0 my-auto">Edit Formation</h4>
+                    </div>
+                </div>
+                <hr>
+
 				<form action="{{route('company.formations.update', ['name'=>auth('company')->user()->name , 'formation'=>$formation->id])}}" method="POST">
 					@method('PUT')
 						@csrf
-				<div class="card-header pb-0">
-					<div class="d-flex justify-content-between">
-						<h4 class="card-title mg-b-0">Create Formation</h4>
-					</div>
-				</div>
-				<div class="card-body row">
+				<div class="card-body pt-0 px-0">
+					<div class="general-information px-4">
+						<h5 class="">General Information</h5>
+						<div class="row">
+							<div class="col-sm-12 col-md-6">
+								<div class="form-group">
+									<label>Title</label>
+									<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$formation->title}}" id="title" name="title">
+									@error('title')
+									<small class="text-danger d-block">
+										{{ $message }}
+									</small>
+									@enderror
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-3">
+								<div class="form-group">
+									<label>Number of positions</label>
+									<input type="text" class="form-control @error('nbr_place') is-invalid @enderror" id="nbr_place" value="{{$formation->nbr_place}}" name="nbr_place">
+									@error('nbr_place')
+									<small class="text-danger d-block">
+										{{ $message }}
+									</small>
+									@enderror
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-3">
+								<div class="form-group mb-1">
+									<label for="state">Permanence</label>
+									<select class="form-control @error('permanence') is-invalid @enderror" name="permanence" id="permanence">
+										<option value="1">Full Time</option>
+										<option value="2">Part Time</option>
+										<option value="{{$formation->permanence}}" hidden selected>{{$formation->permanence == 1 ? 'Full Time' : 'Part Time' }}</option>
+									</select>
 
-					<div class="col-sm-12 col-md-12 mt-2">
-						<div class="general-information">
-							<h5 class="h4 mt-2">General Information</h5>
-							<div class="row">
-								<div class="col-sm-12 col-md-6">
-									<div class="form-group">
-										<label>Title</label>
-										<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$formation->title}}" id="title" name="title">
-										@error('title')
-										<small class="text-danger d-block">
-											{{ $message }}
-										</small>
-										@enderror
-									</div>
+									@error('permanence')
+									<small class="text-danger d-block">
+													{{ $message }}
+									</small>
+									@enderror
 								</div>
-								<div class="col-sm-12 col-md-3">
-									<div class="form-group">
-										<label>Number of positions</label>
-										<input type="text" class="form-control @error('nbr_place') is-invalid @enderror" id="nbr_place" value="{{$formation->nbr_place}}" name="nbr_place">
-										@error('nbr_place')
-										<small class="text-danger d-block">
-											{{ $message }}
-										</small>
-										@enderror
-									</div>
-								</div>
-								<div class="col-sm-12 col-md-3">
-									<div class="form-group mb-1">
-										<label for="state">Permanence</label>
-										<select class="form-control @error('permanence') is-invalid @enderror" name="permanence" id="permanence">
-											<option value="1">Full Time</option>
-											<option value="2">Part Time</option>
-											<option value="{{$formation->permanence}}" hidden selected>{{$formation->permanence == 1 ? 'Full Time' : 'Part Time' }}</option>
-										</select>
+							</div>
 
-										@error('permanence')
-										<small class="text-danger d-block">
-														{{ $message }}
-										</small>
-										@enderror
-									</div>
+							<div class="col-sm-12 col-md-6 col-lg-3">
+								<div class="form-group mb-1">
+									<label for="state">State</label>
+									<select class="form-control @error('state') is-invalid @enderror" name="state" id="state">
+										<option  value="{{$formation->municipals->states->id}}" hidden >{{$formation->municipals->states->name}}</option>
+										@foreach ($states as $item => $state)
+										<option value="{{$state->code}}">{{$state->name}}</option>
+										@endforeach
+									</select>
+									@error('state')
+									<small class="text-danger d-block">
+										{{ $message }}
+									</small>
+									@enderror
 								</div>
+							</div>
+							<div class="col-sm-12 col-md-6 col-lg-3">
+								<div class="form-group mb-1">
+									<label for="city">Municipal</label>
+									<select class="form-control @error('municipal') is-invalid @enderror" name="municipal" id="municipal">
+										<option  value="{{$formation->municipals->id}}" hidden >{{$formation->municipals->name}}</option>
+										@foreach ($municipals as $municipal)
+										<option value="{{$municipal->id}}">{{$municipal->name}}</option>
+										@endforeach
+									</select>
 
-								<div class="col-sm-12 col-md-6 col-lg-3">
-									<div class="form-group mb-1">
-										<label for="state">State</label>
-										<select class="form-control @error('state') is-invalid @enderror" name="state" id="state">
-											<option  value="{{$formation->municipals->states->id}}" hidden >{{$formation->municipals->states->name}}</option>
-											@foreach ($states as $item => $state)
-											<option value="{{$state->code}}">{{$state->name}}</option>
-											@endforeach
-										</select>
-										@error('state')
-										<small class="text-danger d-block">
-											{{ $message }}
-										</small>
-										@enderror
-									</div>
+									@error('municipal')
+									<small class="text-danger d-block">
+										{{ $message }}
+									</small>
+									@enderror
 								</div>
-								<div class="col-sm-12 col-md-6 col-lg-3">
-									<div class="form-group mb-1">
-										<label for="city">Municipal</label>
-										<select class="form-control @error('municipal') is-invalid @enderror" name="municipal" id="municipal">
-											<option  value="{{$formation->municipals->id}}" hidden >{{$formation->municipals->name}}</option>
-											@foreach ($municipals as $municipal)
-											<option value="{{$municipal->id}}">{{$municipal->name}}</option>
-											@endforeach
-										</select>
-
-										@error('municipal')
-										<small class="text-danger d-block">
-											{{ $message }}
-										</small>
-										@enderror
-									</div>
+							</div>
+							<div class="col-sm-12 col-md-6 col-lg-3">
+								<div class="form-group">
+									<label for="date">Date start</label>
+									<input type="date" class="form-control  @error('start') is-invalid @enderror" id="start"  value="{{ date('Y-m-d',strtotime($formation->start)) }}"  name="start">
+									@error('start')
+									<small class="text-danger d-block">
+										{{ $message }}
+									</small>
+									@enderror
 								</div>
-								<div class="col-sm-12 col-md-6 col-lg-3">
-									<div class="form-group">
-										<label for="date">Date start</label>
-										<input type="date" class="form-control  @error('start') is-invalid @enderror" id="start"  value="{{ date('Y-m-d',strtotime($formation->start)) }}"  name="start">
-										@error('start')
-										<small class="text-danger d-block">
-											{{ $message }}
-										</small>
-										@enderror
-									</div>
+							</div>
+							<div class="col-sm-12 col-md-6 col-lg-3">
+								<div class="form-group">
+									<label for="date">Date end </label>
+									<input type="date" class="form-control @error('end') is-invalid @enderror" id="end" value="{{ date('Y-m-d',strtotime($formation->end)) }}" name="end">
+									@error('end')
+									<small class="text-danger d-block">
+										{{ $message }}
+									</small>
+									@enderror
 								</div>
-								<div class="col-sm-12 col-md-6 col-lg-3">
-									<div class="form-group">
-										<label for="date">Date end </label>
-										<input type="date" class="form-control @error('end') is-invalid @enderror" id="end" value="{{ date('Y-m-d',strtotime($formation->end)) }}" name="end">
-										@error('end')
-										<small class="text-danger d-block">
-											{{ $message }}
-										</small>
-										@enderror
-									</div>
-								</div>
-								<div class="col-sm-12 col-md-12">
-									<div class="form-group mb-1">
-										<label for="">Description</label>
-										<textarea
-											class="form-control @error('description') is-invalid @enderror"
-											name="description" id="description" 
-											rows="4"
-										>{{$formation->description}}</textarea>
-										@error('description')
-										<small class="text-danger d-block">
-											{{ $message }}
-										</small>
-										@enderror
-									</div>
+							</div>
+							<div class="col-sm-12 col-md-12">
+								<div class="form-group mb-1">
+									<label for="">Description</label>
+									<textarea
+										class="form-control @error('description') is-invalid @enderror"
+										name="description" id="description" 
+										rows="4"
+									>{{$formation->description}}</textarea>
+									@error('description')
+									<small class="text-danger d-block">
+										{{ $message }}
+									</small>
+									@enderror
 								</div>
 							</div>
 						</div>
 					</div>
+					
 					{{-- <div class="col-sm-12 col-md-12 mt-2">
 						<div class="education-section">
 							<div class="header-section d-md-flex mb-0 mb-md-2">
@@ -270,13 +269,13 @@
 						</div>
 					</div> --}}
 
-					<div class="col-sm-12 col-md-12 mt-2">
-						<div class="education-section">
-							<h5 class="h4 pt-1"><i class="fa fa-graduation-cap mr-1" aria-hidden="true"></i> Education </h5>
-							<div class="education-university mb-2">
+					   <hr>
+						<div class="education-section px-4 mt-2">
+							<h5 class=""><i class="fa fa-graduation-cap mr-1" aria-hidden="true"></i> Education </h5>
+							<div class="education-university mb-1">
 								<div class="header-section d-md-flex mb-0 mb-md-2">
 									<h5 class="h6 pt-2">Education University</h5>
-									<div class="mg-l-auto pl-2 mt-2 mt-md-0">
+									<div class="mg-l-auto pl-2 mt-1 mt-md-0">
 										<button type="button" class="btn btn-success"  id="add-education-university">
 											<i class="fa fa-plus"></i>
 										</button>
@@ -388,10 +387,8 @@
 								</div>
 							</div>
 						</div>
-					</div>
-
-					<div class="col-sm-12 col-md-12 mt-2">
-						<div class="experience-section">
+						<hr>
+						<div class="experience-section px-4">
 							<div class="header-section d-md-flex mb-0 mb-md-2">
 								<h5 class="h4 pt-1"><i class="fa fa-briefcase mr-1" aria-hidden="true"></i> Experience </h5>
 								<div class="mg-l-auto pl-2 mt-2 mt-md-0">
@@ -441,10 +438,8 @@
 								</div>
 							</div>
 						</div>
-					</div>
-			
-					<div class="col-sm-12 col-md-12 mt-2">
-						<div classs="languages-section">
+						<hr>
+						<div class="languages-section px-4">
 							<div class="header-section d-md-flex mb-0 mb-md-2">
 								<h5 class="h4 pt-1"><i class="fa fa-language mr-1" aria-hidden="true"></i> Language </h5>
 								<div class="mg-l-auto pl-2 mt-2 mt-md-0">
@@ -506,18 +501,18 @@
 								
 							</div>
 						</div>
-					</div>
+					
 
-					<div class="col-sm-12 col-md-12 mt-2">
-						<button type="submit" class="btn btn-primary">
-							Update
-						</button>
-					</div>
-				</div> <!-- End Card Body -->
+						<div class="pl-4">
+							<button type="submit" class="btn btn-primary">
+								Update
+							</button>
+						</div>
+				    </div> 
 				</form>
 			</div> <!-- End Card -->
-		</div>
-	</div>
+        </div>
+    </div><!-- Container closed -->
 
 @endsection
 @section('js')

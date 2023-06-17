@@ -63,12 +63,15 @@
                         <div class="card mb-3 pb-0 w-100 mt-2">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
-									<h4 class="content-title mb-0 my-auto">All Formation</h4>
+									<h4 class="content-title mb-0 my-auto">All Order List</h4>
+									<h5>
+										{{-- {{$applicants->formations}} --}}
+									</h5>
 
-									<a type="button" href="{{ route('company.formations.create',auth('company')->user()->name) }}" class="btn btn-primary ml-2">
+									{{-- <a type="button" href="{{ route('company.formations.create',auth('company')->user()->name) }}" class="btn btn-primary ml-2">
 										<i class="fa fa-plus" aria-hidden="true"></i>
 										Create Formation
-									</a>
+									</a> --}}
 								</div>
 							</div>
 							<div class="card-body">
@@ -76,62 +79,43 @@
 									<table class="table card-table table-striped table-vcenter text-nowrap mb-0">
 										<thead>
 											<tr>
-												<th class="text-center"><span>id</span></th>
-												<th class="text-center"><span>Title</span></th>
-												<th class="text-center"><span>Duration</span></th>
-												<th class="text-center"><span>Places</span></th>
-												<th class="text-center"><span>Applys</span></th>
-												
-												{{-- <th class="text-center"><span>Created</span></th> --}}
-												<th class="text-center"><span>Status</span></th>
-												<th class="text-center">Action</th>
+												<th class="wd-lg-8p text-center"><span>id</span></th>
+												<th class="wd-lg-20p text-center"><span>Full Name</span></th>
+												<th class="wd-lg-20p text-center"><span>Email</span></th>
+												<th class="wd-lg-20p text-center"><span>Phone</span></th>
+												<th class="wd-lg-20p text-center"><span>Gender</span></th>
+												<th class="wd-lg-20p text-center"><span>Status</span></th>
+												<th class="wd-lg-20p text-center">Action</th>
 											</tr>
 										</thead>
 										<tbody>
 
-											@foreach ($formations as $item=>$formation)
+											@foreach ($applicants as $item=>$applicant)
 											<tr>
 												<td class="text-center">{{$item++}}</td>
-												<td>{{ substr($formation->title,0, 55)}}</td>
-												<td class="text-center">{{$formation->start->format('d M Y')}} - {{$formation->end->format('d M Y')}}</td>
-												{{-- <td class="text-center"></td> --}}
-												<td class="text-center">{{$formation->nbr_place}}</td>
-												<td class="text-center">{{$formation->participants->count()}}</td>
-												{{-- <td class="text-center">{{$formation->created_at->format('d M Y')}}</td> --}}
+												<td class="">{{$applicant->students->last_name.' '.$applicant->students->first_name }}</td>
+												<td class="">{{$applicant->students->email}}</td>
+												<td class="text-center">{{$applicant->students->phone}}</td>
+												<td class="text-center">{{$applicant->students->gender}}</td>
+												{{-- <td class="text-center">{{$applicant->students->dateBirth->format('d M Y')}}</td> --}}
 												<td class="text-center">
-													@if($formation->status == 'open')
-													    <span class='text-primary'>Opend</span>
-													@elseif($formation->status == 'started')
-													    <span class='text-warning'>Start</span>
-													@elseif($formation->status == 'finished')
-													    <span class='text-success'>Finished</span>
-													@else
-													    <span class='text-danger'>Closed</span>
+													{{$applicant->created_at}}
+												</td>
+												<td class="text-center">
+													@if ($applicant->status == 1) <span class="text-primary">Registered</span>
+													@elseif($applicant->status == 2)<span class="text-warning">In Processing</span> 
+													@elseif($applicant->status == 4)<span class="text-success">Accept</span> 
+													@else <span class="text-danger">Rejected</span>
 													@endif
 												</td>
-												<td class="text-center btn btn-sm ">
-													<a href="{{route('company.formations.show', ['name'=>auth('company')->user()->name , 'formation'=>$formation]	)}}" class="mr-2">
-														<i class="fa fa-eye fa-2x text-primary" aria-hidden="true"></i>
+
+
+												<td class="text-center">
+													<a href="{{route('company.formations.apply.show', ['name'=>auth('company')->user()->name , 'formation'=>$applicant->formations->id , 'apply'=>$applicant->id]	)}}" class="mr-2 btn btn-sm btn-primary">
+														Show Profile
+														{{-- <i class="fa fa-eye fa-2x text-primary" aria-hidden="true"></i> --}}
 													</a>
-													<a href="{{route('company.formations.apply.index',['name'=>auth('company')->user()->name , 'formation'=>$formation])}}" class="mr-2">
-														<i class="fa fa-users fa-2x"></i>
-													</a>
-													<a href="{{route('company.formations.edit', ['name'=>auth('company')->user()->name , 'formation'=>$formation]	)}}" class="mr-2">
-														{{-- Edit --}}
-														<i class="fa fa-pencil fa-2x text-warning" aria-hidden="true"></i>
-													</a>
-													{{-- <a href="" class="btn btn-sm btn-danger">
-														
-														<i class="fa fa-trash-o" aria-hidden="true"></i>
-													</a> --}}
-													<a type="button" class="mr-2" id="modal-remove"
-														data-toggle="modal" data-target="#modal-remove"
-														data-bs-item="Formation"
-														data-bs-title="Delete Formation"
-														data-bs-url="{{ route('company.formations.destroy', ['name'=>auth('company')->user()->name ,'formation'=>$formation->id]) }}"
-													>
-													 <i class="fa fa-trash-o fa-2x text-danger" aria-hidden="true"></i>
-											     	</a>
+                                                    <a href="" class="btn btn-success">Evaluation</a>
 												</td>
 											</tr>
 											@endforeach
@@ -140,8 +124,8 @@
 								</div>							
 							</div>
 							<div class="card-footer mg-y-0 pd-y-0 pt-2">
-								@if(isset($formations))
-								    {!! $formations->appends(['sort' => 'votes'])->links() !!}
+								@if(isset($applicants))
+								    {!! $applicants->appends(['sort' => 'votes'])->links() !!}
 							    @endif 
 							</div>
 						</div><!-- End Card -->

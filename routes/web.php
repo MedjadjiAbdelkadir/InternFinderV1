@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Company\GetStudents;
 use App\Http\Controllers\Publics\GetMunicipalities;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/city', GetMunicipalities::class);
+
+Route::get('/getApply/students', GetStudents::class);
+
 
 
 

@@ -3,19 +3,20 @@
 namespace App\Services;
 
 use Exception;
-use App\Models\CompanyEvaluation;
-use App\Interfaces\CompanyEvaluationInterface;
 use App\Models\Apply;
 use App\Models\Formation;
+use App\Models\StudentEvaluation;
+use App\Interfaces\StudentEvaluationInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class CompanyEvaluationService implements CompanyEvaluationInterface{
+class StudentEvaluationService implements StudentEvaluationInterface{
 
     public function allEvaluation(){
         try {
-            $evaluations = CompanyEvaluation::with(['students','formations'=>function($q){
-            }])->whereRelation('formations','company_id', '=', auth('company')->id())->paginate(PAGINATE_COUNT);
+            $evaluations = StudentEvaluation::with(['students','formations'])
+            ->paginate(PAGINATE_COUNT);
             return $evaluations ;
+
         }catch (Exception $e) {
             throw new Exception('Internal Server Error');
         }
@@ -24,9 +25,14 @@ class CompanyEvaluationService implements CompanyEvaluationInterface{
 
     public function create(){
         try {
-           return Formation::where('company_id',auth('company')->id())
-                           ->where('status', 'finished')
-                           ->get();
+            $applies = Apply::with(['students','formations'])
+                        ->whereRelation('formations','student_id', '=', auth('student')->id())
+                        ->get();
+            foreach($applies as $apply){
+                $formations[] = $apply->formations;
+            }
+            return $formations;
+
         }catch (Exception $e) {
             throw new Exception('Internal Server Error');
         }
@@ -34,7 +40,7 @@ class CompanyEvaluationService implements CompanyEvaluationInterface{
 
     public function show($id){
         try {
-            $evaluation = CompanyEvaluation::with(['students','formations'])->findOrFail($id);
+            $evaluation = StudentEvaluation::with(['students','formations.company'])->findOrFail($id);
             return $evaluation;
         }catch (ModelNotFoundException $e) {
             throw new Exception('Evaluation Not Found', 404);
@@ -59,21 +65,22 @@ class CompanyEvaluationService implements CompanyEvaluationInterface{
 
     public function store($request) {
         
+
         try {
-            $apply_id = Apply::select('id')->where('student_id', $request->student_id)
-            ->where('formation_id', $request->formation_id)
+            $apply_id = Apply::select('id')->where('formation_id', $request->formation_id)
+            ->where('student_id', auth('student')->id())
             ->first();
-            CompanyEvaluation::create([
-            'apply_id'           => $apply_id->id,
-            'time'               => $request->time,
-            'rules_conditions'   => $request->rules_conditions,
-            'development'        => $request->development,
-            'team'               => $request->team,
-            'remark'             => $request->remark,
-            'formation_id'      => $request->formation_id,
-            'student_id'        => $request->student_id,
+            StudentEvaluation::create([
+                'apply_id'           => $apply_id->id,
+                'time'               => $request->time,
+                'rules_conditions'   => $request->rules_conditions,
+                'environment'        => $request->environment,
+                'content'            => $request->content,
+                'remark'             => $request->remark,
+                'formation_id'      => $request->formation_id,
+                'student_id'        => auth('student')->id(),
             ]);
-            return auth('company')->user()->name;
+            return auth('student')->user()->full_name;
         }catch (Exception $e) {
             throw new Exception('Internal Server Error');
         }
@@ -83,15 +90,15 @@ class CompanyEvaluationService implements CompanyEvaluationInterface{
     public function update($request ,$id) {
         
         try {
-            $evaluation = CompanyEvaluation::findOrFail($id);
+            $evaluation = StudentEvaluation::findOrFail($id);
             $evaluation->update([
                 'time'               => $request->time,
                 'rules_conditions'   => $request->rules_conditions,
-                'development'        => $request->development,
-                'team'               => $request->team,
+                'environment'        => $request->environment,
+                'content'            => $request->content,
                 'remark'             => $request->remark,
             ]);
-            return auth('company')->user()->name;
+            return auth('student')->user()->full_name;
         }catch (ModelNotFoundException $e) {
             throw new Exception('Evaluation Not Found', 404);
         }catch (Exception $e) {
@@ -102,9 +109,9 @@ class CompanyEvaluationService implements CompanyEvaluationInterface{
     public function destroy($id) {
         
         try {
-            $evaluation = CompanyEvaluation::findOrFail($id);
+            $evaluation = StudentEvaluation::findOrFail($id);
             $evaluation->delete();
-            return auth('company')->user()->name;
+            return auth('student')->user()->full_name;
         }catch (ModelNotFoundException $e) {
             throw new Exception('Evaluation Not Found', 404);
         }catch (Exception $e) {
