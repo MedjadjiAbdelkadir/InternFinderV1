@@ -49,7 +49,7 @@ class AuthController extends Controller{
                 ->with(['error'=>'Sorry, Fail Registration'])
                 -> withInput($request->all());
             }
-            return redirect()->route('company.index', auth('company')->user()->name)
+            return redirect()->route('company.dashboard.index', auth('company')->user()->name)
                              ->with(['success'=>'Welcome To Your New Account']);
 
         } catch (Exception $e){
@@ -71,7 +71,7 @@ class AuthController extends Controller{
                 -> withInput($request->all());
             }
             // return redirect()->intended(RouteServiceProvider::STUDENT)
-            return redirect()->route('student.index', auth('student')->user()->full_name)
+            return redirect()->route('student.dashboard.index', auth('student')->user()->full_name)
                              ->with(['success'=>'Welcome To Your New Account']);
 
         } catch (Exception $e){
@@ -98,10 +98,11 @@ class AuthController extends Controller{
 
             if(Auth('student')->check()){
 
-                return redirect()->route('student.index', auth('student')->user()->full_name);
+                return redirect()->route('student.dashboard.index', auth('student')->user()->full_name);
 
             }else if(Auth('company')->check()){
-                return redirect()->route('company.index', auth('company')->user()->name);
+                // route('company.dashboard.index',auth('company')->user()->name)
+                return redirect()->route('company.dashboard.index', auth('company')->user()->name);
             }
 
         } catch (Exception $e){

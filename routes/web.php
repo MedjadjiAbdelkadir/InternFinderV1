@@ -17,6 +17,16 @@ use App\Http\Controllers\Publics\GetMunicipalities;
 */
 define('PAGINATE_COUNT',6);
 
+Route::get('/test/number', function () {
+    // $pins = [];
+    // for ($j=0; $j <= 9; $j++) { 
+    //     $nu = rand(0,9);
+    // }
+    // return $nu;
+
+    return '0'.rand(5,7).rand(4,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
+});
+
 Route::get('/', function () {
     return view('index');
 })->name('home');

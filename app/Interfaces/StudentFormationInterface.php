@@ -3,8 +3,12 @@
 namespace App\Interfaces;
 
 interface StudentFormationInterface{
+
     //  Get All Formation
     public function allFormation($name ,$status) ;
+
+    //  Get Formation With Status
+    public function allWithStatusFormation($name ,$status) ;
 
     // Show Formation
     public function show($name, $formation);

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Exception;
 
+use App\Models\Apply;
 use App\Models\Formation;
 use App\Interfaces\StudentFormationInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -12,70 +13,67 @@ class StudentFormationService implements StudentFormationInterface{
     //  Get All Formation
     public function allFormation($name ,$status) {
         try {
+            $applies = Apply::with(['formations','students'])
+                            ->whereHas('formations',function($query){
+                                $query->where('student_id', '=', auth('student')->id());
+                            })->where('student_id', auth('student')->id())
+                            ->paginate(PAGINATE_COUNT);
+            return $applies;
+
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
+    }
+
+    public function allWithStatusFormation($name ,$status){
+        try {            
             if($status == 'all' || $status == ''){
-                $formations = Formation::with([
-                    'participants' => function ($q){
-                        $q->where('student_id', auth('student')->id())->first();
-                    },
-                    'municipals.states',
-                    'company',
+                $applies = Apply::with(['formations','students'])
+                ->whereHas('formations',function($query){
+                    // $query->where('student_id', '=', auth('student')->id());
+                })->where('student_id', auth('student')->id())
+                ->paginate(PAGINATE_COUNT);
     
-                ])->whereHas('participants' , function($query){
-    
-                    $query->where([
-                        ['student_id', '=', auth('student')->id()],
-                    ]);
-                })->paginate(PAGINATE_COUNT);
-    
-            }elseif ($status == 'readay') {
-                $formations = Formation::with([
-                    'participants' => function ($q){
-                        $q->where('student_id', auth('student')->id())->first();
-                    },
-                    'municipals.states',
-                    'company',
-    
-                ])->whereHas('participants' , function($query){
-    
-                    $query->where([
-                        ['student_id', '=', auth('student')->id()],
-                        ['status', '=', 2]
-                    ]);
-                })->paginate(PAGINATE_COUNT);
+            }elseif ($status == 'registered'){
+                $applies = Apply::with(['formations','students'])
+                ->whereHas('formations',function($query){
+                    // $query->where('student_id', '=', auth('student')->id());
+                })->where('student_id', auth('student')->id())
+                ->where('status', 1)
+                ->paginate(PAGINATE_COUNT);
+            }
+            elseif ($status == 'readay') {
+                $applies = Apply::with(['formations','students'])
+                ->whereHas('formations',function($query){
+                    // $query->where('student_id', '=', auth('student')->id());
+                })->where('student_id', auth('student')->id())
+                ->where('status', 2)
+                ->paginate(PAGINATE_COUNT);
             }elseif ($status == 'rejected') {
-                $formations = Formation::with([
-                    'participants' => function ($q){
-                        $q->where('student_id', auth('student')->id())->first();
-                    },
-                    'municipals.states',
-                    'company',
-    
-                ])->whereHas('participants' , function($query){
-    
-                    $query->where([
-                        ['student_id', '=', auth('student')->id()],
-                        ['status', '=', 3]
-                    ]);
-                })->paginate(PAGINATE_COUNT);
+                $applies = Apply::with(['formations','students'])
+                ->whereHas('formations',function($query){
+                    // $query->where('student_id', '=', auth('student')->id());
+                })->where('student_id', auth('student')->id())
+                ->where('status', 3)
+                ->paginate(PAGINATE_COUNT);
             }else{
-                $formations = Formation::with([
-                    'participants' => function ($q){
-                        $q->where('student_id', auth('student')->id())->first();
-                    },
-                    'municipals.states',
-                    'company',
-    
-                ])->whereHas('participants' , function($query){
-    
-                    $query->where([
-                        ['student_id', '=', auth('student')->id()],
-                        ['status', '=', 4]
-                    ]);
-                })->paginate(PAGINATE_COUNT);
+                $applies = Apply::with(['formations','students'])
+                ->whereHas('formations',function($query){
+                    // $query->where('student_id', '=', auth('student')->id());
+                })->where('student_id', auth('student')->id())
+                ->where('status', 4)
+                ->paginate(PAGINATE_COUNT);
             }
 
-            return $formations;
 
+
+          return $applies;
+
+      
+
+            // return $formations;
+        }catch (ModelNotFoundException $e) {
+            throw new Exception('Formation Not found', 404);
         }catch (Exception $e) {
             throw new Exception('Internal Server Error');
         }

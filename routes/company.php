@@ -1,13 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Models\Apply;
 
+use App\Models\Formation;
+use App\Models\CompanyEvaluation;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Company\ApplyController;
 use App\Http\Controllers\Company\StatusFormation;
 use App\Http\Controllers\Company\AccountController;
+use App\Http\Controllers\Company\DashboardController;
 use App\Http\Controllers\Company\FormationController;
 use App\Http\Controllers\Company\EvaluationController;
-
+use App\Http\Controllers\Company\StatusFormationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,15 +43,34 @@ Route::middleware('auth:company')->group(function(){
 
     Route::prefix('formations/{formation}')->as('formations.')->group(function () {
         Route::resource('/apply', ApplyController::class);
-        // Route::get('apply', [ChildController::class, 'index'])->name('formations.child.index');
-        // Add more child routes here
     });
 
-    // Route::get('/getApply/students', GetStudents::class);
-
+    Route::get('{status}/formation', [StatusFormationController::class , 'index'])
+    ->where('status','all|registered|acceptable|rejected|readay')->name('formation.status.index');
 
     Route::resource('/evaluation', EvaluationController::class);
-    // Route::get('evaluation/getApply/students',[EvaluationController::class , 'getStudent']);
+
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::prefix('dashboard')->as('dashboard.')->group(function(){
+        Route::get('/', [DashboardController::class, 'index'])->name('index');
+        Route::get('/formations',[DashboardController::class, 'getAllFormations'])->name('formations');
+        Route::get('/formations/{status}',[DashboardController::class, 'getAllFormationsByStatus'])
+                 ->where('status','started|finished|closed|open')->name('formations.status');
+
+                //  company.dashboard.applies.status
+        Route::get('/applies',[DashboardController::class, 'getAllApplies'])->name('applies');
+        Route::get('/applies/{status}',[DashboardController::class, 'getAllAppliesByStatus'])
+               ->where('status','registered|acceptable|rejected|readay')->name('applies.status');
+
+            //    
+        // getAllAppliesByStatus
+    });
+    Route::get('/test/getCompanyByFormations', function(){
+        // return Formation::paginate(PAGINATE_COUNT)->count();
+
+    });
 
 });
 

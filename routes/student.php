@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Student\AccountController;
 use App\Http\Controllers\Student\LanguageController;
+use App\Http\Controllers\Student\DashboardController;
 use App\Http\Controllers\Student\FormationController;
 use App\Http\Controllers\Student\EvaluationController;
 use App\Http\Controllers\Student\ExperienceController;
@@ -53,9 +54,13 @@ Route::middleware('auth:student')->group(function(){
     Route::resource('/formations', FormationController::class);
 
     Route::get('{status}/formation', [StatusFormationController::class , 'index'])
-        ->where('status','all|acceptable|rejected|readay')->name('formation.index');
+        ->where('status','all|registered|acceptable|rejected|readay')->name('formation.index');
 
     Route::resource('/evaluation', EvaluationController::class);
+
+
+    Route::get('/dashboard/all/', [DashboardController::class, 'index'])->name('dashboard.index');
+
     
     // Route::get('/{status}/formation',function($name,$status){
     //     return $status.' Formations';

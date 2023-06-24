@@ -28,6 +28,22 @@
 
 
 <link href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+@if( !auth('student')->user() && !auth('company')->user())
+<style>
+    
+    .main-header{
+        padding-left: 0;
+    }
+    .app-content{
+        margin-left: 0;
+    }
+    .mobile-logo img{
+        max-height: 50px;
+
+    }
+
+</style>
+@endif
 @if( auth('student')->user() )
 <style>
     

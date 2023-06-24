@@ -13,8 +13,13 @@ class FormationController extends Controller{
         $this->formationService = $formationService;
     }
     public function index($name){
-        $formations = $this->formationService->allFormation($name , '');
-        return view('pages.student.formation.index', compact('formations'));
+        $applies = $this->formationService->allFormation($name , '');
+        // foreach($applies as $apply){
+        //     echo $apply->formations.'<br>';
+        // }
+        // return response($applies);
+
+        return view('pages.student.formation.index', compact('applies'));
     }
 
     /**

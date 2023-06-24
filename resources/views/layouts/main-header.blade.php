@@ -48,7 +48,7 @@
 				</div> --}}
 			</div>
 			<div class="main-header-right">
-				<ul class="nav">
+				{{-- <ul class="nav">
 					<li class="">
 						<div class="dropdown  nav-itemd-none d-md-flex">
 							<a href="#" class="d-flex  nav-item nav-link pl-0 country-flag1" data-toggle="dropdown" aria-expanded="false">
@@ -133,12 +133,12 @@
 							</div>
 						</div>
 					</li>
-				</ul>
+				</ul> --}}
 				
 
 				<div class="nav nav-item  navbar-nav-right ml-auto">
 					@if (auth('student')->user() || auth('company')->user())
-						<div class="nav-link" id="bs-example-navbar-collapse-1">
+						{{-- <div class="nav-link" id="bs-example-navbar-collapse-1">
 							<form class="navbar-form" role="search">
 								<div class="input-group">
 									<input type="text" class="form-control" placeholder="Search">
@@ -322,7 +322,7 @@
 						</div>
 						<div class="nav-item full-screen fullscreen-button mt-3">
 							<a class="new nav-link full-screen-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg></a>
-						</div>
+						</div> --}}
 
 						<div class="dropdown main-profile-menu nav nav-item nav-link">
 							<a class="profile-user d-flex" href="">
@@ -369,15 +369,18 @@
 								 --}}
 								@if(auth('student')->check())
 
-									<a class="dropdown-item" href="">
+									{{-- <a class="dropdown-item" href="{{ route('student.formation.index',['name'=>auth('student')->user()->full_name , 'status'=>'all']) }}">
 										<i class="bx bxs-inbox"></i>Apply
-									</a>
+									</a> --}}
 									<a class="dropdown-item" href="">
 										<i class="bx bx-envelope"></i>Messages
 									</a>
-									<a class="dropdown-item" href="{{route('student.dashboard',auth('student')->user()->full_name)}}">
+									<a class="dropdown-item" href="{{route('student.dashboard.index',auth('student')->user()->full_name)}}">
 										<i class="fa fa-th-large" aria-hidden="true"></i>
 										Dashboard
+									</a>
+									<a class="dropdown-item" href="{{ route('student.formations.index',['name'=>auth('student')->user()->full_name]) }}">
+										<i class="fa fa-bullhorn"></i>Formation
 									</a>
 									<a class="dropdown-item" href="{{ route('student.evaluation.index',['name'=>auth('student')->user()->full_name]) }}">
 										<i class="fa fa-star"></i>Evaluation
@@ -396,7 +399,7 @@
 								<a class="dropdown-item" href="">
 									<i class="bx bx-envelope"></i>Messages
 								</a>
-								<a class="dropdown-item" href="">
+								<a class="dropdown-item" href="{{route('company.dashboard.index',auth('company')->user()->name)}}">
 									<i class="fa fa-th-large" aria-hidden="true"></i>
 									Dashboard
 								</a>

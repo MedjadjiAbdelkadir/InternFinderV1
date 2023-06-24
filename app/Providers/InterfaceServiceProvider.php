@@ -29,16 +29,20 @@ use App\Services\AccountCompanyService;
 use App\Services\AccountStudentService;
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\CompanyApplyInterface;
+use App\Services\CompanyDashboardService;
 use App\Services\CompanyFormationService;
 use App\Services\Education\SchoolService;
+use App\Services\StudentDashboardService;
 use App\Services\StudentFormationService;
 use App\Services\CompanyEvaluationService;
 use App\Services\StudentEvaluationService;
 use App\Interfaces\AccountCompanyInterface;
 use App\Interfaces\AccountStudentInterface;
 use App\Services\Education\InstituteService;
+use App\Interfaces\CompanyDashboardInterface;
 use App\Interfaces\CompanyFormationInterface;
 use App\Interfaces\Education\SchoolInterface;
+use App\Interfaces\StudentDashboardInterface;
 use App\Interfaces\StudentFormationInterface;
 use App\Services\Education\UniversityService;
 use App\Interfaces\CompanyEvaluationInterface;
@@ -80,6 +84,10 @@ class InterfaceServiceProvider extends ServiceProvider{
         $this->app->bind(StudentEvaluationInterface::class ,StudentEvaluationService::class );
 
         $this->app->bind(CompanyEvaluationInterface::class ,CompanyEvaluationService::class );
+
+
+        $this->app->bind(StudentDashboardInterface::class ,StudentDashboardService::class );
+        $this->app->bind(CompanyDashboardInterface::class ,CompanyDashboardService::class );
 
     }
 

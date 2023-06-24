@@ -7,6 +7,8 @@ interface CompanyFormationInterface{
     //  Get All Formation
     public function allFormation() ;
 
+    public function allWithStatusFormation($name , $status);
+    
     //  Get All Formation With Status
     public function allFormationWithStatus($name , $status);
     

@@ -21,7 +21,7 @@
 		@endif
 				
 		<!-- main-content -->
-		<div class="main-content app-content">
+		<div class="main-content app-content ">
 			@include('layouts.main-header')			
 			<!-- container -->
 			<div class="container-fluid" >
@@ -30,7 +30,10 @@
 				@yield('content')
 				@include('layouts.sidebar')
 				@include('layouts.models')
-            	{{-- @include('layouts.footer') --}}
+				@if( !auth('student')->user() && !auth('company')->user())
+			    	@include('layouts.footer')
+				@endif
+            	{{--  --}}
 				@include('layouts.footer-scripts')
 				
 				

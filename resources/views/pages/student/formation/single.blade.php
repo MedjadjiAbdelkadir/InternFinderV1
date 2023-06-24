@@ -1,37 +1,44 @@
 @extends('layouts.master')
 @push('title')| Formaton @endpush
-@include('pages.student.formation.cancel')
+{{-- @include('pages.student.formation.cancel') --}}
 @section('css')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 @endsection
-@section('page-header')
-    <div class="breadcrumb-header justify-content-between">
-        <div class="my-auto">
-            <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Formation</h4>
-                {{-- <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Products</span> --}}
-            </div>
+
+@section('modals')
+<!-- Start Modal Cancel Join Formation -->
+<div class="modal" id="cancel-join-formation">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content tx-size-sm">
+            <form method="post" id="cancelFormationForm">
+                @csrf               
+                @method('DELETE')
+                <input type="hidden" value="3" class="form-control" id="status" name="status" />
+                <div class="modal-body tx-center pd-y-20 pd-x-20">
+                    <button aria-label="Close" class="close " data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button> 
+                    <i class="icon icon ion-ios-close-circle-outline tx-100 tx-danger lh-1 mg-t-20 d-inline-block"></i>
+                    <h4 class="tx-danger mg-b-20">Cancel !</h4>
+                    <p class="mg-b-20 mg-x-20">Are you sure you want to Cancel Join this formation</p>
+                    <button class="btn ripple btn-danger pd-x-25" type="submit">Confirm</button>
+                </div>
+            </form>
         </div>
-        <!--
-        <div class="d-flex my-xl-auto right-content">
-  
-            <div class="mb-3 mb-xl-0 btn btn-primary">
-                Edit
-                {{-- <i class="fa fa-pencil fa-2x"></i> --}}
-            </div>
-        </div>
-        -->
     </div>
+</div>
+<!-- End Modal Cancel Join Formation -->
+@endsection
+@section('page-header')
+
 @endsection
 
 @section('content')
 
-    <div class="row row-sm">
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 grid-margin">
-            <div class="card pb-2">
-                <div class="card-header">
-                    <div class="d-flex">
-                        <h5 class="h4 mt-2">General Information</h5>
+            <div class="card mb-3 pb-0 w-100 mt-2">
+                <div class="card-header pb-0">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="content-title mb-0 my-auto">Information</h4>
                         <div class="mg-l-auto">
                             <a type="button" class="btn btn-danger text-white px-2" id="btn_cancel_formation"
                                 data-toggle="modal" data-target="#cancel-join-formation"

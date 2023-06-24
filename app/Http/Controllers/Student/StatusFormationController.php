@@ -14,10 +14,10 @@ class StatusFormationController extends Controller
         $this->formationService = $formationService;
     }
     public function index($name , $status){
-        $formations = $this->formationService->allFormation($name,$status);
+        $applies = $this->formationService->allWithStatusFormation($name,$status);
 
-        // return response($formations);
-        return view('pages.student.formation.index', compact('formations'));
+        // return response($applies);
+        return view('pages.student.formation.index', compact('applies'));
     }
 
 }

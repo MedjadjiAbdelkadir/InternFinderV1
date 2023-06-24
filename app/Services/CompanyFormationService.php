@@ -4,6 +4,7 @@ namespace App\Services;
 use DB;
 
 use Exception;
+use App\Models\Apply;
 use App\Models\State;
 use App\Models\Formation;
 use App\Models\Municipal;
@@ -16,8 +17,8 @@ use App\Models\DegreeUniversity;
 use App\Models\FormationLanguage;
 use App\Models\DurationExperience;
 use App\Models\FormationExperience;
-use App\Models\SpecialtyUniversity;
 
+use App\Models\SpecialtyUniversity;
 use App\Models\FormationEducationSchool;
 use App\Models\FormationEducationInstitute;
 use App\Models\FormationEducationUniversity;
@@ -34,8 +35,53 @@ class CompanyFormationService implements CompanyFormationInterface{
         } 
     }
 
+    public function allWithStatusFormation($name , $status){
+        try {            
+            if($status == 'all' || $status == ''){
+                $applies = Apply::with(['formations','students'])
+                        ->where('company_id', auth('company')->id())
+                ->paginate(PAGINATE_COUNT);
+            }
+            elseif ($status == 'readay') {
+                $applies = Apply::with(['formations','students'])
+                ->whereHas('formations',function($query){
+                    $query->where('company_id', auth('company')->id());
+                })
+                ->where('status', 2)
+                ->paginate(PAGINATE_COUNT);
+            }elseif ($status == 'rejected') {
+                $applies = Apply::with(['formations','students'])
+                ->whereHas('formations',function($query){
+                    $query->where('company_id', auth('company')->id());
+                })
+                ->where('status', 3)
+                ->paginate(PAGINATE_COUNT);
+            }else{
+                $applies = Apply::with(['formations','students'])
+                ->whereHas('formations',function($query){
+                    $query->where('company_id', auth('company')->id());
+                })
+                ->where('status', 4)
+                ->paginate(PAGINATE_COUNT);
+            }
+
+
+
+          return $applies;
+
+      
+
+            // return $formations;
+        }catch (ModelNotFoundException $e) {
+            throw new Exception('Formation Not found', 404);
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
+    }
     public function allFormationWithStatus($name , $status){
         try {
+
+            return $status;
             $formations = Formation::whereStatus($status)->where('company_id',auth('company')->id())->with([
                 'company',
                 'formationUniversityEducations.specialty',
