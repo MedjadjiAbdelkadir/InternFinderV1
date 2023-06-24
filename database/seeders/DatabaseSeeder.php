@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\JobsTableSeeder;
+use Database\Seeders\AdminTableSeeder;
 use Database\Seeders\ApplyTableSeeder;
 use Database\Seeders\EmptyTableSeeder;
 use Database\Seeders\StatesTableSeeder;
@@ -36,6 +37,7 @@ class DatabaseSeeder extends Seeder
             // EmptyTableSeeder::class,
             StatesTableSeeder::class,
             MunicipalsTableSeeder::class,
+            AdminTableSeeder::class,
             CompanyTableSeeder::class,
             StudentsTableSeeder::class,
             
