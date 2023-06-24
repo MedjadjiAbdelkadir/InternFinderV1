@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class AccountStudentService implements AccountStudentInterface{
 
     public function show($name){
-        try {
+        try{
             $municipals = Municipal::where('state_id', auth('student')->user()->municipals->state_id)->get();
             $states = State::get();
             $list_languages  = ListLanguage::get();
@@ -33,9 +33,7 @@ class AccountStudentService implements AccountStudentInterface{
             $specialty_universities =SpecialtyUniversity::get();
             $degree_institutes = DegreeInstitute::get();
     
-            $degree_schools = DegreeSchool::get();
-            $specialty_schools = SpecialtySchool::get();
-    
+
             $durationExperiences = DurationExperience::get();
             $jobs  = Job::get();
             
@@ -52,7 +50,8 @@ class AccountStudentService implements AccountStudentInterface{
                 'list_languages'=> $list_languages , 
                 'level_languages'=> $level_languages ,
             ];
-            
+          
+         
         }catch (ModelNotFoundException $e) {
 
             throw new Exception('Student not found', 404);

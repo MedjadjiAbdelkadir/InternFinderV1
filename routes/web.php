@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Company\GetStudents;
+use App\Http\Controllers\Publics\HomeController;
 use App\Http\Controllers\Publics\GetMunicipalities;
 
 
@@ -17,20 +18,13 @@ use App\Http\Controllers\Publics\GetMunicipalities;
 */
 define('PAGINATE_COUNT',6);
 
-Route::get('/test/number', function () {
-    // $pins = [];
-    // for ($j=0; $j <= 9; $j++) { 
-    //     $nu = rand(0,9);
-    // }
-    // return $nu;
+Route::get('/',[HomeController::class , 'index'])->name('home');
+Route::get('/formations',[HomeController::class , 'getAllFormations'])->name('formations');
+Route::get('/companies',[HomeController::class , 'getAllCompanies'])->name('companies');
 
-    return '0'.rand(5,7).rand(4,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
-});
+Route::post('/search',[HomeController::class , 'searchFormations'])->name('search.formations');
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
-
+// search.formations
 Route::get('/city', GetMunicipalities::class);
 
 Route::get('/getApply/students', GetStudents::class);

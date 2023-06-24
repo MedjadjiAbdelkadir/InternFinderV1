@@ -17,6 +17,8 @@ class AccountController extends Controller{
     public function show($name){
         try {
             $data = $this->accountService->show($name);
+
+        
             if($data){
 
                 $municipals = $data['municipals'];
@@ -39,6 +41,7 @@ class AccountController extends Controller{
                 ));
             }
             abort(404);
+        
             // Code 
         }catch (Exception $e) {
             throw new Exception('Internal Server Error');

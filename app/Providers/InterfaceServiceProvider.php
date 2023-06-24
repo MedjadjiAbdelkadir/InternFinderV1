@@ -5,11 +5,14 @@ namespace App\Providers;
 use App\Services\CvService;
 use App\Services\AuthService;
 
+use App\Services\HomeService;
 use App\Services\ApplyService;
-use App\Services\SkillService;
 
+use App\Services\SkillService;
 use App\Interfaces\CvInterface;
+
 use App\Interfaces\AuthInterface;
+use App\Interfaces\HomeInterface;
 
 use App\Services\LanguageService;
 use App\Interfaces\ApplyInterface;
@@ -22,7 +25,6 @@ use App\Services\ExperienceService;
 
 use App\Interfaces\LanguageInterface;
 use App\Services\CompanyApplyService;
-
 use App\Interfaces\EducationInterface;
 use App\Interfaces\ExperienceInterface;
 use App\Services\AccountCompanyService;
@@ -53,6 +55,7 @@ use App\Interfaces\Education\UniversityInterface;
 class InterfaceServiceProvider extends ServiceProvider{
 
     public function register(){
+        $this->app->bind(HomeInterface::class, HomeService::class );
 
         $this->app->bind(AuthInterface::class, AuthService::class );
 

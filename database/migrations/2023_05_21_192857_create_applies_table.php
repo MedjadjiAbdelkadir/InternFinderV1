@@ -22,7 +22,7 @@ class CreateAppliesTable extends Migration
             // $table->unsignedBigInteger('student_id'); 
             $table->foreignId('student_id')->references('id')->on('students')->onDelete('cascade');
 
-            $table->enum('status',[1,2,3])->default(1)->comment('{1:Registered},{2:In Processing},{3:Rejected},{4:Accepted}');
+            $table->enum('status',[1,2,3,4])->default(1)->comment('{1:Registered},{2:In Processing},{3:Rejected},{4:Accepted}');
             $table->softDeletes();
             $table->timestamps();
         });
