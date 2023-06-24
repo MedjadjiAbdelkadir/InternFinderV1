@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\JobsTableSeeder;
+use Database\Seeders\ApplyTableSeeder;
 use Database\Seeders\EmptyTableSeeder;
 use Database\Seeders\StatesTableSeeder;
 use Database\Seeders\CompanyTableSeeder;
@@ -60,7 +61,7 @@ class DatabaseSeeder extends Seeder
             FormationExperiencesTableSeeder::class,
             FormationLanguagesTableSeeder::class,
 
-            
+            ApplyTableSeeder::class,
         ]);
     }
 }
