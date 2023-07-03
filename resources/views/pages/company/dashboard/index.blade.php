@@ -263,13 +263,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="row row-sm">
+
+                {{-- <div class="row row-sm">
 					<div class="col-sm-12 col-md-5 col-lg-5">
                         <div class="card">
-                            {{-- <div class="card-header pb-1">
-                                <h3 class="card-title mb-2">Top 5 Trainees </h3>
-                                <p class="tx-12 mb-0 text-muted">List of the best trainers who have undergone training in our Company</p>
-                            </div> --}}
                             <div class="card-header bg-transparent pd-b-0 bd-b-0">
                                 <div class="d-flex justify-content-between">
                                     <h4 class="card-title text-capitalize">Top Trainees</h4>
@@ -420,7 +417,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
 
 

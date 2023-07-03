@@ -13,29 +13,60 @@ class HomeController extends Controller{
         $this->homeService = $homeService;
     }
     public function index(){
-        $data =  $this->homeService->index();
-        $companies  =  $data['companies'];
-        $formations = $data['formations'];
-        // {$companies } = $data[];
-        // return $companies;
-        return view('index' ,compact('companies','formations'));
+        try{
+            $data =  $this->homeService->index();
+            $companies  =  $data['companies'];
+            $formations = $data['formations'];
+            return view('index' ,compact('companies','formations'));
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
     }
     public function getAllFormations(){
-        $formations =  $this->homeService->getAllFormations();
+        try{
+            $formations =  $this->homeService->getAllFormations();
+            return view('formations' ,compact('formations'));
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
 
-        return view('formations' ,compact('formations'));
+    }
+    public function getAllFormationsByCompany($company){
+        try{
+            $company = $this->homeService->getAllFormationsByCompany($company);
+            // $formations =  $this->homeService->getAllFormationsByCompany($company);
+            return view('company' ,compact('company'));
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
+    }
+    public function getFormationsById($formation){
+        try{
+            $formation =  $this->homeService->getFormationsById($formation);
+            return view('single-formation' ,compact('formation'));
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
     }
     public function getAllCompanies(){
-        // getAllCompanies
-        $companies =  $this->homeService->getAllCompanies();
-        return view('companies' ,compact('companies'));
-        
+        try{
+            $companies =  $this->homeService->getAllCompanies();
+            return view('companies' ,compact('companies'));
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
     }
 
 
     public function searchFormations(Request $request){
-        // tr
-        return $this->homeService->searchFormations($request);
+        try{
+            $formations  = $this->homeService->searchFormations($request);
+
+            return view('result-searchFormations' , compact('formations'));
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
+       
         // $formations = $this->homeService->searchFormations($request);
     }
 }

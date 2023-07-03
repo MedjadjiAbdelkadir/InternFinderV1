@@ -94,7 +94,11 @@ class AuthService implements AuthInterface{
             'phone'        => $request->phone ,
             'municipal_id' => $request->municipal,
             'company_type' => $request->company_type, 
-            'sector'       => $request->sector,
+            'address'      => '',
+            'avatar'       => 'https://cdn4.iconfinder.com/data/icons/election-voting/512/as_1369-512.png',
+
+            'category'        => $request->category,
+            'description'     => '',
         ]);
         
         $credentials = $request->only('email', 'password');

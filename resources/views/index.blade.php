@@ -45,6 +45,9 @@
   }
 </style>
 <!-- Maps css -->
+<!-- Maps css -->
+<!-- Maps css -->
+<!-- Maps css -->
 <link href="{{URL::asset('assets/plugins/jqvmap/jqvmap.min.css')}}" rel="stylesheet">
 @endsection
 @section('page-header')

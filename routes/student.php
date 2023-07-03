@@ -61,6 +61,7 @@ Route::middleware('auth:student')->group(function(){
 
     Route::get('/dashboard/all/', [DashboardController::class, 'index'])->name('dashboard.index');
 
+    Route::get('/dashboard/apply/', [DashboardController::class, 'apply'])->name('dashboard.apply');
     
     // Route::get('/{status}/formation',function($name,$status){
     //     return $status.' Formations';

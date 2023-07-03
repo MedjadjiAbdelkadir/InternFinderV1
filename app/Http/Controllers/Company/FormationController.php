@@ -162,11 +162,12 @@ class FormationController extends Controller{
 
     public function allFormationWithStatus($name , $status){
         try{
-            // return 'Formation : '.$status  ;
+      
+            // return $this->formationService->allFormationWithStatus($name , $status);
             $formations = $this->formationService->allFormationWithStatus($name , $status);
-
+            // return $formations;
             return view('pages.company.formation.formation-with-status' ,compact(['formations','status']));
-            return $name ;
+            // return $name ;
             // formation-with-status
             // return redirect()->route('company.formations.index',$name);
         }catch (Exception $e) {

@@ -66,7 +66,7 @@ class CompanyFormationService implements CompanyFormationInterface{
             }
 
 
-
+            // return 'test';
           return $applies;
 
       
@@ -81,7 +81,6 @@ class CompanyFormationService implements CompanyFormationInterface{
     public function allFormationWithStatus($name , $status){
         try {
 
-            return $status;
             $formations = Formation::whereStatus($status)->where('company_id',auth('company')->id())->with([
                 'company',
                 'formationUniversityEducations.specialty',

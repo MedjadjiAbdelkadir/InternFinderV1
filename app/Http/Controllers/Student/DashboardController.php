@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Interfaces\StudentDashboardInterface;
+use App\Models\Apply;
 
 class DashboardController extends Controller
 {
@@ -45,6 +46,14 @@ class DashboardController extends Controller
         }
     }
 
+    public function apply($name){
+
+        $applys = Apply::with('formations')->where('student_id',auth('student')->id())->get();
+        // return Apply::where('student_id', auth('student')->id());
+
+
+        return view('pages.student.apply.index',compact('applys'));
+    }
     public function getAllFormations(){
         try {
             $formations = $this->dashboardService->getAllFormations();

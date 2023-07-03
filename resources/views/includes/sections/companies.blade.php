@@ -6,7 +6,7 @@
     <div class="main-contnet row">
         @foreach ($companies as $company)        
             <div class="col-sm-12 col-md-4 col-lg-3">
-                <a href="" class="card py-3 text-dark">
+                <a href="{{route('company.byId',$company->id)}}" class="card py-3 text-dark">
                     <div class="row pl-2">
                         <div class="col-md-3 col-lg-3">
                             <img  class="img-fluid rounded-circle" height="80px" src="{{$company->avatar}}">

@@ -30,9 +30,39 @@ class HomeService implements HomeInterface{
             throw new Exception('Internal Server Error');
         }
     }
+    public function getAllFormationsByCompany($company){
+        try {
+            // return 'getAllFormationsByCompany';
+            return Company::with('formations')->find($company);
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
+    }
     public function getAllCompanies(){
         try {
             return Company::paginate(14);
+        }catch (Exception $e) {
+            throw new Exception('Internal Server Error');
+        }
+    }
+
+    public function getFormationsById($formation) {
+        try {            
+            $formation = Formation::with([
+                'municipals.states',
+                'company',
+                'formationUniversityEducations.specialty',
+                'formationUniversityEducations.degreeUniversities',
+        
+                'formationInstituteEducations.degreeInstitutes',
+                'formationExperiences.durations',
+                'formationLanguages.languages',
+                'formationLanguages.levels'
+            ])->findOrFail($formation);
+
+            return $formation;
+        }catch (ModelNotFoundException $e) {
+            throw new Exception('Formation Not found', 404);
         }catch (Exception $e) {
             throw new Exception('Internal Server Error');
         }
@@ -50,37 +80,7 @@ class HomeService implements HomeInterface{
                 $q->where('name', '=', $title);
             })->orWhere('title', 'LIKE', '%'.$title.'%')
               ->orWhere('municipal_id', 'LIKE', '%'.$municipal->id.'%')
-              ->get();
-            
-            // ->where('title', 'LIKE', '%'.$title.'%')
-              
-
-            // return Formation::with('company')
-            //       ->where('title', 'LIKE', '%'.$title.'%')
-            //       ->get();
-
-            // ->where('state_départ', 'LIKE', '%'.$state_départ.'%')
-            // ->where('state_arrivé', 'LIKE', '%'.$state_arrivé.'%')
-
-            // return Formation::with('company')->whereHas('company' ,function($query) use ($title){
-            //     return $query->where('name',$title);
-
-            // })->get();
-            /*
-
-->where('title', $request->title)
-              ->where('municipal_id' ,$municipal->id )
-            */
-            // return $request;
-            // $formations = Formation::where('name', 'like', '%' . request('search') . '%')
-            //             ->where('name', 'like', '%' . request('search') . '%')
-            //             ->get();
-
-                        // if (request('search')) {
-                        //     ＄users = User::where('name', 'like', '%' . request('search') . '%')->get();
-                        // } else {
-                        //     ＄users = User::all();
-                        // }
+              ->paginate(10);
         }catch (Exception $e) {
             throw new Exception('Internal Server Error');
         }

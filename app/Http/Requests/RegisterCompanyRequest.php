@@ -26,18 +26,19 @@ class RegisterCompanyRequest extends FormRequest{
             'company_type'  => 'required|in:Public,Private',
             'category'      => 'required|string',
             'email'        => 'required|email|unique:companies,email|max:255',
-            'phone'        => 'required|numeric|min:10|max:50|unique:companies,phone',
+            'phone'        => 'required|unique:companies,phone',
+            // numeric|min:10|
             'password'     => [
                 'required',
                 'string',
                 'min:8',             // must be at least 10 characters in length
-                'regex:/[a-z]/',      // must contain at least one lowercase letter
-                'regex:/[A-Z]/',      // must contain at least one uppercase letter
-                'regex:/[0-9]/',      // must contain at least one digit
-                'regex:/[@$!%*#?&]/', // must contain a special character
+                // 'regex:/[a-z]/',      // must contain at least one lowercase letter
+                // 'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                // 'regex:/[0-9]/',      // must contain at least one digit
+                // 'regex:/[@$!%*#?&]/', // must contain a special character
             ],
             // 'password' => 'required|string|min:8|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
-            'password_confirmation' => 'required_with:password|same:password|min:8', 
+            // 'password_confirmation' => 'required_with:password|same:password|min:8', 
             'state'      =>'required',
             'municipal'       =>'required',
         ];

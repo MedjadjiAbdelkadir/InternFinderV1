@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\Models\Apply;
+use App\Models\Formation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Interfaces\CompanyApplyInterface;
@@ -21,8 +23,27 @@ class ApplyController extends Controller{
         //
     }
 
-    public function store(Request $request){
-        //
+    public function store(Request $request ){
+        // return $request->formation_id;
+
+        // dashboard.apply
+        try{
+            $formation = Formation::findOrFail($request->formation_id);
+            Apply::create([
+                'formation_id' => $formation ->id,
+                'student_id'   => auth('student')->id() ,
+            ]);
+            $name = auth('student')->user()->full_name;
+            return redirect()->route('student.dashboard.apply',$name );
+        }catch (ModelNotFoundException $e) {
+
+            throw new Exception('Apply not found', 404);
+
+        }catch (Exception $e) {
+
+            throw new Exception('Internal Server Error');
+
+        }
     }
 
     public function show($name,$formation,$apply){

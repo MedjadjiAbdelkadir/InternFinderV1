@@ -1,3 +1,4 @@
+
 <div class="mb-3">
     <div class="header-content text-center pt-5">
         <h1>Last Formations</h1>
@@ -6,7 +7,7 @@
     <div class="main-contnet row">
         @foreach ($formations as $formation)        
             <div class="col-sm-12 col-md-4">
-                <a href="" class="card py-3 text-dark" >
+                <a href="{{route('formation',$formation->id)}}" class="card py-3 text-dark" >
                     <div class="row pl-2">
                         <div class="col-md-3 col-lg-3">
                             <img  class="img-fluid rounded-circle"  src="{{$formation->company->avatar}}">

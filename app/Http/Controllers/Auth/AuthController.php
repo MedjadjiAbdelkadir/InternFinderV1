@@ -41,6 +41,7 @@ class AuthController extends Controller{
 
     public function registerCompany(RegisterCompanyRequest $request){
         
+        // return $request;
         try {
             $data = $this->authService->registerCompany($request) ;
             

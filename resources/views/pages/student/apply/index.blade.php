@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@push('title')| All Evaluation @endpush
+@push('title')| All Apply @endpush
 @section('css')
 <!-- Internal Data table css -->
 <link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
@@ -63,52 +63,52 @@
                     <div class="card mb-3 pb-0 w-100 mt-2">
                         <div class="card-header pb-0">
                             <div class="d-flex justify-content-between">
-                                <h4 class="content-title mb-0 my-auto">All Evaluation</h4>
-
-                                <a type="button" href="{{ route('student.evaluation.create',['name'=>auth('student')->user()->full_name]) }}" class="btn btn-primary ml-2">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                    Create Evaluation
-                                </a>
+                                <h4 class="content-title mb-0 my-auto">All Applys</h4>
                             </div>
                         </div>
                         <div class="card-body">
-                            @if($evaluations->count() > 0)  
+                            @if($applys->count() > 0)  
                                 <div class="table-responsive border-top userlist-table">
                                     <table class="table card-table table-striped table-vcenter text-nowrap mb-0">
                                         <thead>
                                             <tr>
                                                 <th class="text-center"><span>id</span></th>
-                                                <th class="text-center"><span>Student</span></th>
+                                                <th class="text-center"><span>Company</span></th>
                                                 <th class="text-center"><span>Title</span></th>
-                                                <th class="text-center"><span>Notes</span></th>
-                                                <th class="text-center"><span>Estimation</span></th>
+                                                <th class="text-center"><span>Status</span></th>
+                                                {{-- <th class="text-center"><span>Estimation</span></th> --}}
                                                 
-                                                <th class="text-center"><span>Created</span></th>
+                                                {{-- <th class="text-center"><span>Created</span></th> --}}
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($evaluations as $item => $evaluation)
+                                            @foreach ($applys as $item => $apply)
                                                 <tr>
                                                     <td class="text-center"><span>{{$item }}</span></td>
-                                                    <td class="text-center"><span>{{$evaluation->students->last_name}} {{$evaluation->students->first_name}}</span></td>
+                                                    <td class="text-center"><span>{{$apply->formations->company->name}}</span></td>
                                                     <td class="text-center"><span>
-                                                        {{ substr($evaluation->formations->title,0, 55)}}
+                                                        {{ substr($apply->formations->title,0, 55)}}
                                                     </span></td>
-                                                    <td class="text-center"><span>{{$evaluation->finalMark}}</span></td>
+                                                    
                                                     <td class="text-center"><span>
-                                                        @if($evaluation->finalMark >= 15)
-                                                            Very Good
-                                                        @elseif($evaluation->finalMark >= 14 && $evaluation->finalMark <= 15)
-                                                            Good
-                                                        @elseif($evaluation->finalMark < 14 && $evaluation->finalMark >= 10)
-                                                            Middle
+                                                        @if($apply->status == 1)
+                                                            <span class="text-primary">Registered</span>
+                                                        @elseif($apply->status == 2)
+                                                        <span class="text-warning">Processing</span>
+                                                        @elseif($apply->status == 3)
+                                                            <span class="text-danger">Rejected</span>
                                                         @else
-                                                            Weak
+                                                            <span class="text-success">Accepted</span>
                                                         @endif
                                                     </span></td>
-                                                    <td class="text-center"><span>{{$evaluation->created_at->format('d M Y')}}</span></td>
-                                                    <td class="text-center">
+                                                    <td>
+                                                        <a class="btn btn-primary" href="{{route('student.formations.show',['name'=>auth('student')->user()->full_name,'formation'=>$apply->formation_id])}}">
+                                                        Show Formation
+                                                        </a>
+                                                    </td>
+                                                    {{-- <td class="text-center"><span>{{$evaluation->created_at->format('d M Y')}}</span></td> --}}
+                                                    {{-- <td class="text-center">
 
                                                         <a href="{{route('student.evaluation.show', ['name'=> auth('student')->user()->full_name , 'evaluation'=>$evaluation->id] )}}" class="mr-2">
                                                             <i class="fa fa-eye fa-2x text-primary" aria-hidden="true"></i>
@@ -117,11 +117,8 @@
                                                         
                                                             <i class="fa fa-pencil fa-2x text-warning" aria-hidden="true"></i>
                                                         </a>
-                                                        {{-- <a href="{{route('student.formations.apply.show', ['name'=>auth('student')->user()->full_name , 'formation'=>$evaluation->formation_id , 'apply'=>$evaluation->apply_id]	)}}" class="mr-2 btn btn-sm btn-primary">
-                                                            Show Profile
-                                                        </a>  --}}
                                                     
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
 
                                             @endforeach
@@ -129,16 +126,16 @@
                                     </table>
                                 </div>
                             @else
-                            <span class="text-danger">Have Not Evaluations</span>
+                            <span class="text-danger">Have Not Apply</span>
                             @endif
   
 
 							
                         </div>
                         <div class="card-footer mg-y-0 pd-y-0 pt-2">
-                            @if(isset($evaluations))
-                                {!! $evaluations->appends(['sort' => 'votes'])->links() !!}
-                            @endif 
+                            {{-- @if(isset($applys))
+                                {!! $applys->appends(['sort' => 'votes'])->links() !!}
+                            @endif  --}}
                         </div>
                     </div><!-- End Card -->
                 </div>

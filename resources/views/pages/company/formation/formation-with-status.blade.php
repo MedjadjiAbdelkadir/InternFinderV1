@@ -63,6 +63,7 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            @if($formations->count() > 0)
                             <div class="table-responsive border-top userlist-table">
                                 <table class="table card-table table-striped table-vcenter text-nowrap mb-0">
                                     <thead>
@@ -79,7 +80,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                
                                         @foreach ($formations as $item=>$formation)
                                         <tr>
                                             <td class="text-center">{{$item++}}</td>
@@ -121,7 +122,10 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                            </div>							
+                            </div>	
+                            @else
+                            <span class="text-danger">Have Not {{$status}} Foramtions</span>
+                            @endif						
                         </div>
                         <div class="card-footer mg-y-0 pd-y-0 pt-2">
                             @if(isset($formations))

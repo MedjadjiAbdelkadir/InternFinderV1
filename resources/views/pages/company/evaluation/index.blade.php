@@ -72,6 +72,7 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            @if($evaluations->count() > 0)
                             <div class="table-responsive border-top userlist-table">
                                 <table class="table card-table table-striped table-vcenter text-nowrap mb-0">
                                     <thead>
@@ -124,84 +125,13 @@
                                             
                                             </td>
                                         </tr>
-
-                                        <tr>
-                                            <td class="text-center"><span>{{$item }}</span></td>
-                                            <td class="text-center"><span>{{$evaluation->students->last_name}} {{$evaluation->students->first_name}}</span></td>
-                                            <td class="text-center"><span>
-                                                {{ substr($evaluation->formations->title,0, 55)}}
-                                            </span></td>
-                                            <td class="text-center"><span>{{$evaluation->finalMark}}</span></td>
-                                            <td class="text-center"><span>
-                                                @if($evaluation->finalMark >= 15)
-                                                    Very Good
-                                                @elseif($evaluation->finalMark >= 14 && $evaluation->finalMark <= 15)
-                                                    Good
-                                                @elseif($evaluation->finalMark < 14 && $evaluation->finalMark >= 10)
-                                                    Middle
-                                                @else
-                                                    Weak
-                                                @endif
-                                            </span></td>
-                                            <td class="text-center"><span>{{$evaluation->created_at->format('d M Y')}}</span></td>
-                                            <td class="text-center">
-
-                                                <a href="{{route('company.evaluation.show', ['name'=> auth('company')->user()->name , 'evaluation'=>$evaluation->id] )}}" class="mr-2">
-                                                    <i class="fa fa-eye fa-2x text-primary" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="{{route('company.evaluation.edit', ['name'=> auth('company')->user()->name , 'evaluation'=>$evaluation->id] )}}" class="mr-2">
-                                                 
-                                                    <i class="fa fa-pencil fa-2x text-warning" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="{{route('company.formations.apply.show', ['name'=>auth('company')->user()->name , 'formation'=>$evaluation->formation_id , 'apply'=>$evaluation->apply_id]	)}}" class="mr-2 btn btn-sm btn-primary">
-                                                    Show Profile
-                                                    {{-- <i class="fa fa-eye fa-2x text-primary" aria-hidden="true"></i> --}}
-                                                </a> 
-                                            
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-center"><span>{{$item }}</span></td>
-                                            <td class="text-center"><span>{{$evaluation->students->last_name}} {{$evaluation->students->first_name}}</span></td>
-                                            <td class="text-center"><span>
-                                                {{ substr($evaluation->formations->title,0, 55)}}
-                                            </span></td>
-                                            <td class="text-center"><span>{{$evaluation->finalMark}}</span></td>
-                                            <td class="text-center"><span>
-                                                @if($evaluation->finalMark >= 15)
-                                                    Very Good
-                                                @elseif($evaluation->finalMark >= 14 && $evaluation->finalMark <= 15)
-                                                    Good
-                                                @elseif($evaluation->finalMark < 14 && $evaluation->finalMark >= 10)
-                                                    Middle
-                                                @else
-                                                    Weak
-                                                @endif
-                                            </span></td>
-                                            <td class="text-center"><span>{{$evaluation->created_at->format('d M Y')}}</span></td>
-                                            <td class="text-center">
-
-                                                <a href="{{route('company.evaluation.show', ['name'=> auth('company')->user()->name , 'evaluation'=>$evaluation->id] )}}" class="mr-2">
-                                                    <i class="fa fa-eye fa-2x text-primary" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="{{route('company.evaluation.edit', ['name'=> auth('company')->user()->name , 'evaluation'=>$evaluation->id] )}}" class="mr-2">
-                                                 
-                                                    <i class="fa fa-pencil fa-2x text-warning" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="{{route('company.formations.apply.show', ['name'=>auth('company')->user()->name , 'formation'=>$evaluation->formation_id , 'apply'=>$evaluation->apply_id]	)}}" class="mr-2 btn btn-sm btn-primary">
-                                                    Show Profile
-                                                    {{-- <i class="fa fa-eye fa-2x text-primary" aria-hidden="true"></i> --}}
-                                                </a> 
-                                            
-                                            </td>
-                                        </tr>
-
-
                                         @endforeach
                                     </tbody>
                                 </table>
-                            </div>							
+                            </div>	
+                            @else
+                            <span class="text-danger">Have Not Evaluations</span>
+                            @endif						
                         </div>
                         <div class="card-footer mg-y-0 pd-y-0 pt-2">
                             @if(isset($evaluations))

@@ -9,5 +9,9 @@ interface HomeInterface{
 
     public function getAllCompanies();
 
+    public function getAllFormationsByCompany($company);
+
+    public function getFormationsById($formation);
+
     public function searchFormations($request);
 }
