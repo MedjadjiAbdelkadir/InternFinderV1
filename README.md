@@ -52,6 +52,8 @@ It is a website that aims to publish training advertisements for companies and t
 
 ## How To Use
 
+### Download Repository
+
 ```bash
 # Clone this repository
 $ git clone https://github.com/MedjadjiAbdelkadir/InternFinderV1.git
@@ -61,6 +63,12 @@ $ cd InternFinderV1
 $ cp .env.example .env.
 # Generate Key Of .env
 $ php artisan key:generate.
+# Download DataBase ['internfinderlast']('https://www.mysql.com')
+```
+<!-- ### Download DataBase 'internfinderlast' -->
+
+```bash
+
 # Migration Table
 $ php artisan migrate
 # Run the project
