@@ -70,13 +70,7 @@ $ php artisan key:generate.
 # Create DataBase
 $ CREATE DATABASE IF NOT EXISTS 'InternFinder'
 # Go to file .env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
 DB_DATABASE=InternFinder
-DB_USERNAME=root
-DB_PASSWORD=
-
 # Migration Table
 $ php artisan migrate
 # Seeding table
