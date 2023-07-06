@@ -10,7 +10,7 @@ It is a website that aims to publish training advertisements for companies and t
 <img src="https://github.com/MedjadjiAbdelkadir/InternFinderV1/blob/main/public/Screenshots/ChooseRegisterPage.png" width="100%" height="500">
 
 
-### Login  
+### Login Page
 <img src="https://github.com/MedjadjiAbdelkadir/InternFinderV1/blob/main/public/Screenshots/LoginPage.png" width="100%" height="500">
 
 ### Top Companies  
