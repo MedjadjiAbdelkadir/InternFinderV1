@@ -63,16 +63,23 @@ $ cd InternFinderV1
 $ cp .env.example .env.
 # Generate Key Of .env
 $ php artisan key:generate.
-
 ```
-### Download DataBase
-[internfinderlast](https://laravel.com)
-<!-- ### Download DataBase 'internfinderlast' -->
 
+### Create DataBase && Migration && Seeding
 ```bash
-
+# Create DataBase
+$ CREATE DATABASE IF NOT EXISTS 'InternFinder'
+# Go to file .env
+$ DB_DATABASE=InternFinder
 # Migration Table
 $ php artisan migrate
+# Seeding table
+$ php artisan db:seed
+```
+
+### Run Project
+
+```bash
 # Run the project
 $ php artisan serve
 ```
