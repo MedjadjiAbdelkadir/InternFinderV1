@@ -63,7 +63,7 @@ $ cd InternFinderV1
 $ cp .env.example .env.
 # Generate Key Of .env
 $ php artisan key:generate.
-# Download DataBase ['internfinderlast']('https://www.mysql.com')
+# Download DataBase [internfinderlast]('https://www.mysql.com')
 ```
 <!-- ### Download DataBase 'internfinderlast' -->
 
