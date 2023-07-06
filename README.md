@@ -65,7 +65,8 @@ $ cp .env.example .env.
 $ php artisan key:generate.
 
 ```
-### Download DataBase [internfinderlast]('https://www.mysql.com')
+### Download DataBase
+[internfinderlast](https://laravel.com)
 <!-- ### Download DataBase 'internfinderlast' -->
 
 ```bash
