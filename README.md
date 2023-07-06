@@ -21,7 +21,7 @@ It is a website that aims to publish training advertisements for companies and t
 ## Technologies Used in the Project 
 
 - [Laravel](https://laravel.com).
-- database MySQL
+- [database MySQL](https://www.mysql.com)
 
 
 ## Project Structure 
