@@ -1,7 +1,7 @@
 ## About InternFinder
 
 ## Screenshots
-### Home Page  
+### Header Section  
 <!-- <img src="https://github.com/MedjadjiAbdelkadir/covoiturage/blob/main/public/Screenshots/Home%20Page.png" width="100%" height="500"> -->
 
 ### Login  
