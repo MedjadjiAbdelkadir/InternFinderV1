@@ -9,8 +9,9 @@ It is a website that aims to publish training advertisements for companies and t
 - Browse the list of companies involved in the site
 - Create a new account as a company or trainee
 - Account login
+  
 ### Company
-- **ddd**
+- View personal account, modify, delete
 - See All company trainings
 - Show Single Training, Update Training , Delete Training
 - Change Status of Training (Started , Closed or  Finished)
@@ -18,9 +19,15 @@ It is a website that aims to publish training advertisements for companies and t
 - See all trainers wishing to join the training
 - Refusal or acceptance of trainers wishing to join the training
 - Evaluation of the trainees accepted in the training after the end of the training
-- 
-### Company
+
+### Trainee
 - View personal account, modify, delete
+- Add educational certificates, professional experiences and languages
+- Ask to join in the appropriate training for the trainee in terms of timing, content and qualifications
+- Post-training evaluation
+
+### Admins
+- Administrators often have the authority to administer the site
 ## Screenshots
 ### Header Section  
 <img src="https://github.com/MedjadjiAbdelkadir/InternFinderV1/blob/main/public/Screenshots/HeaderSection.png" width="100%" height="500">
